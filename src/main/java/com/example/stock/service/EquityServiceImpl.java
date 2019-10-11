@@ -130,41 +130,6 @@ public class EquityServiceImpl implements EquityService {
 		return null;
 	}
 
-	// For sorting to skip negative value.
-	// If negative value's no of digits is greater, then the value should be
-	// consider
-	// in sorting.
-	private List<NiftyEquityDerivative> getChninOISort(List<NiftyEquityDerivative> equities) {
-
-		List<NiftyEquityDerivative> list = new ArrayList<NiftyEquityDerivative>();
-		equities.forEach(s -> {
-			NiftyEquityDerivative e = s;
-			Double d = s.getChnginOI();
-			if (s.getChnginOI() < 0) {
-				d = s.getChnginOI() * -1;
-			}
-			e.setChnginOI(d);
-			list.add(e);
-		});
-
-		return list;
-	}
-
-	@Override
-	public void saveStockOptionsEquity() {
-		try {
-			equityLookupService.loadStocksOptionsData();
-		} catch (InterruptedException e) {
-		logger.error("Error while saving stocks option data");
-		}
-	}
-	
-	@Override
-	public List<StockOptionsEquity> serachStocksOptionEquity(SearchFilter search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private List<NiftyEquityDerivative> getEquitiesByDates(Date startDate, Date endDate, SearchFilter search) throws Exception{
 		List<Filter> filters = search.getFilter();
 
@@ -211,7 +176,61 @@ public class EquityServiceImpl implements EquityService {
 		return finalEquity.stream().filter(EquityDerivativePredicate.distinctByKeys(NiftyEquityDerivative::getRowNo,
 				NiftyEquityDerivative::getDate)).collect(Collectors.toList());
 	}
+
+	// For sorting to skip negative value.
+	// If negative value's no of digits is greater, then the value should be
+	// consider
+	// in sorting.
+	private List<NiftyEquityDerivative> getChninOISort(List<NiftyEquityDerivative> equities) {
+
+		List<NiftyEquityDerivative> list = new ArrayList<NiftyEquityDerivative>();
+		equities.forEach(s -> {
+			NiftyEquityDerivative e = s;
+			Double d = s.getChnginOI();
+			if (s.getChnginOI() < 0) {
+				d = s.getChnginOI() * -1;
+			}
+			e.setChnginOI(d);
+			list.add(e);
+		});
+
+		return list;
+	}
+
 	
+	// STOCK OPTION CHAIN CODE STARTS.................!
+	@Override
+	public void saveStockOptionsEquity() {
+		try {
+			equityLookupService.loadStocksOptionsData();
+		} catch (InterruptedException e) {
+		logger.error("Error while saving stocks option data");
+		}
+	}
+	
+	@Override
+	public List<StockOptionsEquity> serachStocksOptionEquity(SearchFilter search) {
+		List<StockOptionsEquity> stockOptionsList = new ArrayList<StockOptionsEquity>();
+		try {
+			Date startDate = DateUtil.addDaysToDate(-1);
+			Date endDate = DateUtil.getCurretDate();
+			if (search.getStartDate() != null) {
+				startDate = DateUtil.getDateWithoutTime(search.getStartDate());
+				if(search.getEndDate() !=null)
+					endDate = DateUtil.getDateWithoutTime(search.getEndDate());
+			}
+			List<Date> dates = stockOptionsEquityRepository.getDistinctDateBetweenRange(startDate, endDate);
+			for (Date date : dates) {
+				stockOptionsList.addAll(getStockEquitiesByDates(date, date, search));
+			}
+		} catch (Exception e) {
+			logger.error("EquityService : Error",e);
+		}
+		
+		return stockOptionsList;
+	}
+
+		
 	private List<StockOptionsEquity> getStockEquitiesByDates(Date startDate, Date endDate, SearchFilter search) {
 		List<Filter> filters = search.getFilter();
 
