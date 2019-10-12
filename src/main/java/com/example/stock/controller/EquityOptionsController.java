@@ -47,12 +47,22 @@ public class EquityOptionsController {
 		return Arrays.asList();
 	}
 
-	@PostMapping(value="/nifty/premiumdk",consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/nifty/yesterday-today",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<NiftyEquityDerivative> getPremiumDk(@RequestBody SearchFilter search) {
 		try {
-			return equityService.getNiftyPremiumDK(search);
+			return equityService.getYesterdayMinusTodayK(search);
 		} catch (Exception e) {
-			logger.error("Error while processing request- /search/premiumdk");
+			logger.error("Error while processing request- /search/yesterday-today");
+		}
+		return Arrays.asList();
+	}
+	
+	@PostMapping(value="/search/stocksOptions",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<StockOptionsEquity> getStockOptionsEquity(@RequestBody SearchFilter search) {
+		try {
+			return equityService.serachStocksOptionEquity(search);
+		} catch (Exception e) {
+			logger.error("Error while processing request- /search/stocks");
 		}
 		return Arrays.asList();
 	}
@@ -62,19 +72,11 @@ public class EquityOptionsController {
 		equityService.saveNiftyEquityDerivatives();
 	}
 	
-	@GetMapping("/load-stocks")
+	@GetMapping("/load-stocksOptions")
 	public void loadStockOptionsData() throws Exception{
 		equityService.saveStockOptionsEquity();
 	}
 	
-	@PostMapping(value="/search/stocks",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<StockOptionsEquity> getStockOptionsEquity(@RequestBody SearchFilter search) {
-		try {
-			return equityService.serachStocksOptionEquity(search);
-		} catch (Exception e) {
-			logger.error("Error while processing request- /search/stocks");
-		}
-		return Arrays.asList();
-	}
+	
 	
 }

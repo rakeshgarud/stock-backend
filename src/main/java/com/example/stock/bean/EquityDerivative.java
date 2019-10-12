@@ -42,6 +42,11 @@ public abstract class EquityDerivative {
 	@Column
 	private int rowNo;
 	
+	@Column
+	private double postionsVol;
+	
+	
+	
 	@Transient
 	private EquityDerivative prevEquity;
 	
@@ -141,12 +146,21 @@ public abstract class EquityDerivative {
 	public void setPrevEquity(EquityDerivative prevEquity) {
 		this.prevEquity = prevEquity;
 	}
+	
+	public double getPostionsVol() {
+		return postionsVol;
+	}
+	public void setPostionsVol(double postionsVol) {
+		this.postionsVol = postionsVol;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "EquityDerivative [oi=" + oi + ", changeInOI=" + chnginOI + ", volume=" + volume + ", iv=" + iv
 				+ ", ltp=" + ltp + ", netChng=" + netChng + ", bidQty=" + bidQty + ", bidPrice=" + bidPrice
 				+ ", askPrice=" + askPrice + ", askQty=" + askQty + ", strikePrice=" + strikePrice + ", date=" + date
-				+ ", type=" + type + ", rowNo=" + rowNo + "]";
+				+ ", type=" + type + ", rowNo=" + rowNo +  ", postionsVol=" + postionsVol +"]";
 	}
 	
 }

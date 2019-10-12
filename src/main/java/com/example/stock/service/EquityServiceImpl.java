@@ -57,6 +57,7 @@ public class EquityServiceImpl implements EquityService {
 			equity = mapper.convertValue(s, NiftyEquityDerivative.class);
 			equity.setDate(DateUtil.getCurretDate());
 			equity.setId(null);
+			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
 			equities.add(equity);
 		});
 		String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_SOURCE_DIR);
@@ -88,7 +89,7 @@ public class EquityServiceImpl implements EquityService {
 	}
 
 	@Override
-	public List<NiftyEquityDerivative> getNiftyPremiumDK(SearchFilter search) {
+	public List<NiftyEquityDerivative> getYesterdayMinusTodayK(SearchFilter search) {
 		Date startDate = DateUtil.addDaysToDate(-search.getDays());
 		Date endDate = DateUtil.getCurretDate();
 		if (search.getStartDate() != null) {
