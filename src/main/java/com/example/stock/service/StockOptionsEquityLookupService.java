@@ -46,7 +46,6 @@ public class StockOptionsEquityLookupService {
     			equity.setSymbol(symbol.get("symbol").toString());
     			equity.setDate(DateUtil.getCurretDate());
     			equity.setId(null);
-    			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
     			equities.add(equity);
     		});
     		String sourceDir = (String) configService.getConfigByName(Constant.STOCK_OPTIONS_SOURCE_DIR);

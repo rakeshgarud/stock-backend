@@ -3,5 +3,6 @@
     "equitySourceDir":"Market Data//Nifty Options",
     "stockEquitySourceDir":"Market Data//Stock Options",
     "stockSourceDir":"Market Data//Stock Data",
-    "activitySourceDir":"Market Data//FII's' Data"
+    "activitySourceDir":"Market Data//FII's' Data",
+    "intraDayEquitySourceDir":"Market Data//Intra Day Nifty Options"
 }

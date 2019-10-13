@@ -59,16 +59,6 @@ public class StockController {
 		return Arrays.asList();
 	}
 	
-	@PostMapping(value="/get-all-stock-list",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<Stock> getStocksAllStockList(@PathParam("startDate") String startDate,@PathParam("endDate") String endDate, @RequestBody List<Filter> filter) {
-		try {
-			return stockService.getStocks(DateUtil.stringToDate(startDate), DateUtil.stringToDate(endDate));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return Arrays.asList();
-	}
-	
 	@GetMapping("/get-filter")
 	public Object getFilter(@PathParam("type") String type) throws IOException {
 		HashMap<String, Object> res = configService.getFile("Data.json");

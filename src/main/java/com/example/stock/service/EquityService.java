@@ -13,7 +13,7 @@ public interface EquityService {
 
 	public List<NiftyEquityDerivative> serachNiftyEquity(SearchFilter search);
 
-	public List<NiftyEquityDerivative> getYesterdayMinusTodayK(SearchFilter search);
+	public List<NiftyEquityDerivative> getNiftyPremiumDK(SearchFilter search);
 
 	public void saveNiftyEquityDerivatives();
 

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.example.stock.constants.Constant;
 import com.example.stock.service.ConfigService;
 import com.example.stock.service.EquityService;
+import com.example.stock.service.IntraDayEquityService;
 import com.example.stock.service.StockOptionsEquityLookupService;
 import com.example.stock.service.StockService;
 import com.example.stock.util.HTTPConnection;
@@ -36,6 +37,9 @@ public class Scheduler {
 
 	@Autowired
 	ConfigService configService;
+	
+	@Autowired
+	private IntraDayEquityService intraDayEquityService;
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -79,10 +83,10 @@ public class Scheduler {
 		TimeUnit.SECONDS.sleep(2);
 	}
 	
-	@Scheduled(cron = "0 8 * * * ?") //Runs job after every 8 Min daily
+	@Scheduled(cron = "0 */1 * ? * *") //Runs job after every 8 Min daily
 	public void cronGetEquityDataForNifty() throws Exception {
 		logger.info("Scheduler Job : Started cronGetEquityDataForNifty "+dateTimeFormatter.format(LocalDateTime.now()));
-		//equityService.saveNiftyEquityDerivatives();
+		intraDayEquityService.saveIntraDayNiftyEquityDerivatives();
 		logger.info("Scheduler Job : Finished cronGetEquityDataForNifty "+dateTimeFormatter.format(LocalDateTime.now()));
 	}
 	

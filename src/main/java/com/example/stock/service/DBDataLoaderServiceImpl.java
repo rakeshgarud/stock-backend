@@ -20,7 +20,6 @@ import com.example.stock.repo.NiftyEquityDerivativeRepository;
 import com.example.stock.repo.StockOptionsEquityRepository;
 import com.example.stock.repo.StockRepository;
 import com.example.stock.util.CSVReader;
-import com.example.stock.util.DateUtil;
 import com.example.stock.util.FileUtil;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,7 +64,6 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	
 	private List<NiftyEquityDerivative> loadEquityFromFile(String sourceDir, String fileFormat) {
 		String DIR = null;
-		double postionsVol =0.0;
 		if (sourceDir != null) {
 			DIR = sourceDir;
 		}
@@ -78,14 +76,7 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.setSerializationInclusion(Include.NON_NULL);
 			try {
-				//equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
 				equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
-				
-				for (int j =0; j < equities.size(); j++) {
-					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();
-					equities.get(j).setPostionsVol(postionsVol);
-					//System.out.println(equities.get(j).getPostionsVol());
-				}
 				equityDerivativeRepository.saveAll(equities);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -106,7 +97,6 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	private List<StockOptionsEquity> loadStocksOptionsEquityFromFile(String sourceDir, String fileFormat) {
 		List<StockOptionsEquity> equities = new ArrayList<StockOptionsEquity>();
 		File[] files = FileUtil.getAllFiles(sourceDir, fileFormat);
-		double postionsVol =0.0;
 		if (files == null) {
 			return Arrays.asList();
 		}
@@ -115,11 +105,6 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 			mapper.setSerializationInclusion(Include.NON_NULL);
 			try {
 				equities = Arrays.asList(mapper.readValue(files[i], StockOptionsEquity[].class));
-				for (int j =0; j < equities.size(); j++) {
-					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();
-					equities.get(j).setPostionsVol(postionsVol);
-					//System.out.println(equities.get(j).getPostionsVol());
-				}
 				stockOptionsequityRepository.saveAll(equities);
 			} catch (Exception e) {
 				e.printStackTrace();

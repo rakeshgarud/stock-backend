@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @MappedSuperclass
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -35,17 +36,13 @@ public abstract class EquityDerivative {
 	private double askQty;
 	@Column
 	private double strikePrice;
+	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss",timezone="IST")
 	@Column
 	private Date date;
 	@Column
 	private int type;
 	@Column
 	private int rowNo;
-	
-	@Column
-	private double postionsVol;
-	
-	
 	
 	@Transient
 	private EquityDerivative prevEquity;
@@ -146,21 +143,12 @@ public abstract class EquityDerivative {
 	public void setPrevEquity(EquityDerivative prevEquity) {
 		this.prevEquity = prevEquity;
 	}
-	
-	public double getPostionsVol() {
-		return postionsVol;
-	}
-	public void setPostionsVol(double postionsVol) {
-		this.postionsVol = postionsVol;
-	}
-	
-	
 	@Override
 	public String toString() {
 		return "EquityDerivative [oi=" + oi + ", changeInOI=" + chnginOI + ", volume=" + volume + ", iv=" + iv
 				+ ", ltp=" + ltp + ", netChng=" + netChng + ", bidQty=" + bidQty + ", bidPrice=" + bidPrice
 				+ ", askPrice=" + askPrice + ", askQty=" + askQty + ", strikePrice=" + strikePrice + ", date=" + date
-				+ ", type=" + type + ", rowNo=" + rowNo +  ", postionsVol=" + postionsVol +"]";
+				+ ", type=" + type + ", rowNo=" + rowNo + "]";
 	}
 	
 }
