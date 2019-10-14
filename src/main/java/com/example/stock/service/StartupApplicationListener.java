@@ -26,8 +26,6 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
     	String niftySourceDir =  config.get(Constant.NIFTY_SOURCE_DIR).toString();
     	String fiiSourceDir =  config.get(Constant.FII_SOURCE_DIR).toString();
     	String stockOptionsSourceDir =  config.get(Constant.STOCK_OPTIONS_SOURCE_DIR).toString();
-    	String intraDayOptionsSourceDir =  config.get(Constant.INTRADAY_NIFTY_SOURCE_DIR).toString();
-    	
     	String path = FileUtil.createDir(stockSourceDir);
     	config.put(Constant.STOCK_SOURCE_DIR, path);
     	path = FileUtil.createDir(niftySourceDir);
@@ -36,8 +34,6 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
     	config.put(Constant.FII_SOURCE_DIR, path);
     	path = FileUtil.createDir(stockOptionsSourceDir);
     	config.put(Constant.STOCK_OPTIONS_SOURCE_DIR, path);
-    	path = FileUtil.createDir(intraDayOptionsSourceDir);
-    	config.put(Constant.INTRADAY_NIFTY_SOURCE_DIR, path);
     	configService.saveConfig(config);
     	
     	// Load data from file to DB
