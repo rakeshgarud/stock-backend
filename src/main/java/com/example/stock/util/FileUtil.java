@@ -9,6 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.stock.bean.IntraDayEquity;
 import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.StockOptionsEquity;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,6 +78,20 @@ public class FileUtil {
 	}
 	
 	public static void saveStockOptionsEquityAsJsonFile(List<StockOptionsEquity> equities, String sourcePath) {
+		try {
+			ObjectMapper Obj = new ObjectMapper();
+			String jsonStr = Obj.writeValueAsString(equities);
+			String fileName = DateUtil.getDateAsString() + ".json";
+
+			FileWriter file = new FileWriter(sourcePath + "\\" + fileName);
+			file.write(jsonStr);
+			file.close();
+			logger.info("New file " + fileName + "is created");
+		} catch (IOException e) {
+		}
+	}
+	
+	public static void saveIntraDayNiftyOptionsEquityAsJsonFile(List<IntraDayEquity> equities, String sourcePath) {
 		try {
 			ObjectMapper Obj = new ObjectMapper();
 			String jsonStr = Obj.writeValueAsString(equities);

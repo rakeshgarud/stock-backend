@@ -3,40 +3,26 @@ package com.example.stock.service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.stock.bean.EquityDerivativePredicate;
 import com.example.stock.bean.ExchangeActivity;
-import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.Stock;
-import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.bean.StockPredicate;
 import com.example.stock.constants.Constant;
 import com.example.stock.dto.Filter;
-import com.example.stock.dto.SearchFilter;
-import com.example.stock.enums.Column;
 import com.example.stock.enums.Direction;
 import com.example.stock.repo.ExchangeActivityRepository;
-import com.example.stock.repo.NiftyEquityDerivativeRepository;
-import com.example.stock.repo.StockOptionsEquityRepository;
 import com.example.stock.repo.StockRepository;
 import com.example.stock.util.CSVReader;
-import com.example.stock.util.DateUtil;
-import com.example.stock.util.EquityDerivativesUtil;
 import com.example.stock.util.FileUtil;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class StockServiceImpl implements StockService {

@@ -37,11 +37,32 @@ public class DateUtil {
         return cal.getTime();
 	}
 	
+	public static Date addMinutesToDate(Date date,int min) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, date.getHours());
+		if(min<0) {
+			min = -1*min;
+			cal.set(Calendar.MINUTE, date.getMinutes()-min);
+		}else
+			cal.set(Calendar.MINUTE, date.getMinutes()+min);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+	}
+	
 	public static Date getDateWithoutTime(Date date) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+	}
+	
+	public static Date getDateWithoutSec(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
@@ -63,5 +84,14 @@ public class DateUtil {
 			System.out.println(e);
 		}
 		return getDateWithoutTime(dateStr);
+	}
+	
+	public static Date setDateWithTime(int hr,int min) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, hr);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
 	}
 }
