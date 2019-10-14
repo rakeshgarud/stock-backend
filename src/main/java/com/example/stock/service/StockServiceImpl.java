@@ -22,6 +22,7 @@ import com.example.stock.enums.Direction;
 import com.example.stock.repo.ExchangeActivityRepository;
 import com.example.stock.repo.StockRepository;
 import com.example.stock.util.CSVReader;
+import com.example.stock.util.DateUtil;
 import com.example.stock.util.FileUtil;
 
 @Service
@@ -79,7 +80,7 @@ public class StockServiceImpl implements StockService {
 
 	private List<Stock> getGreateStock(List<Stock> startStock, Date date, List<Filter> filters) {
 		List<Stock> finalStock = new ArrayList<Stock>();
-
+		date = DateUtil.addDaysToDate(date, 1);
 		List<Stock> stockNext = stockRepository.getAllStocksBetweenDates(date, date);
 
 		startStock.forEach(start -> {
@@ -144,7 +145,10 @@ public class StockServiceImpl implements StockService {
 			}
 
 		});
-		thisDateStock = stockNext;
+		if(!stockNext.isEmpty())
+			thisDateStock = finalStock;
+		else
+			finalStock.addAll(startStock);
 		return finalStock;
 
 	}
