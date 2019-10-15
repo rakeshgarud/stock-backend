@@ -91,10 +91,10 @@ public class FileUtil {
 		}
 	}
 	
-	public static void saveIntraDayNiftyOptionsEquityAsJsonFile(List<IntraDayEquity> equities, String sourcePath) {
+	public static void saveAsJsonFile(Object listObj, String sourcePath) {
 		try {
 			ObjectMapper Obj = new ObjectMapper();
-			String jsonStr = Obj.writeValueAsString(equities);
+			String jsonStr = Obj.writeValueAsString(listObj);
 			String fileName = DateUtil.getDateAsString() + ".json";
 
 			FileWriter file = new FileWriter(sourcePath + "\\" + fileName);

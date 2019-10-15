@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.stock.bean.IntraDayEquity;
+import com.example.stock.bean.MonthlyEquity;
 import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.dto.SearchFilter;
 import com.example.stock.service.ConfigService;
 import com.example.stock.service.EquityService;
 import com.example.stock.service.IntraDayEquityService;
+import com.example.stock.service.MonthlyEquityService;
 import com.example.stock.util.DateUtil;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders = { "Content-Type", "Accept",
@@ -42,6 +44,9 @@ public class EquityOptionsController {
 	
 	@Autowired
 	private IntraDayEquityService intraDayEquityService;
+	
+	@Autowired
+	private MonthlyEquityService monthlyEquityService;
 	
 	@PostMapping(value="/search/nifty",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<NiftyEquityDerivative> getEquity(@RequestBody SearchFilter search) {
@@ -84,7 +89,7 @@ public class EquityOptionsController {
 	}
 	
 	@PostMapping(value="/intraday",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<IntraDayEquity> getIntraDayPremiumDk(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
+	public List<IntraDayEquity> getIntraDayYesterDayMinusToday(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
 		try {
 			int hr = Integer.parseInt(startTime.split(":")[0]);
 			int min = Integer.parseInt(startTime.split(":")[1]);
@@ -92,11 +97,26 @@ public class EquityOptionsController {
 			hr = Integer.parseInt(endTime.split(":")[0]);
 			min = Integer.parseInt(endTime.split(":")[1]);
 			search.setEndDate(DateUtil.setDateWithTime(hr,min));
-			return intraDayEquityService.getIntraDayNiftyPremiumDK(search);
+			return intraDayEquityService.getIntraDayYesterdayMinusToday(search);
 		} catch (Exception e) {
 			logger.error("Error while processing request- /intraday");
 		}
 		return Arrays.asList();
 	}
 	
+	@PostMapping(value="/monthly/equity",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<MonthlyEquity> getMonthlyYesterDayMinusToday(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
+		try {
+			int hr = Integer.parseInt(startTime.split(":")[0]);
+			int min = Integer.parseInt(startTime.split(":")[1]);
+			search.setStartDate(DateUtil.setDateWithTime(hr,min));
+			hr = Integer.parseInt(endTime.split(":")[0]);
+			min = Integer.parseInt(endTime.split(":")[1]);
+			search.setEndDate(DateUtil.setDateWithTime(hr,min));
+			return monthlyEquityService.getMonthyYesterdayMinusToday(search);
+		} catch (Exception e) {
+			logger.error("Error while processing request- /intraday");
+		}
+		return Arrays.asList();
+	}
 }

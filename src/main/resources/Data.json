@@ -3,34 +3,34 @@
         {
             "name": "Close Price",
             "key": "CLOSE_PRICE",
-            "direction": ""
+            "direction": "UP"
         },
         {
             "name": "TTL Trade Qty",
             "key": "TRADE_QTY",
-            "direction": ""
+            "direction": "UP"
         },
         {
             "name": "Deliver Qty",
             "key": "DELIV_QTY",
-            "direction": ""
+            "direction": "UP"
         },
         {
             "name": "Deliver Per",
             "key": "DELIV_PER",
-            "direction": ""
+            "direction": "UP"
         }
     ],
     "equityFilter": [
         {
             "name": "Open Intrest",
             "key": "OI",
-            "direction": ""
+            "direction": "UP"
         },
         {
             "name": "ChangeIn OI",
             "key": "CHANGE_IN_OI",
-            "direction": ""
+            "direction": "UP"
         }
     ]
 }
