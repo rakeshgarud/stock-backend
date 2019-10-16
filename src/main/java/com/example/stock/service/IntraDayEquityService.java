@@ -46,7 +46,8 @@ public class IntraDayEquityService {
 			equity = mapper.convertValue(s, IntraDayEquity.class);
 			equity.setDate(createdDate);
 			equity.setId(null);
-			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
+			double posVol = Double.valueOf(equity.getChnginOI()) / Double.valueOf(equity.getVolume());
+			equity.setPostionsVol(posVol);
 			equities.add(equity);
 		});
 		String sourceDir = (String) configService.getConfigByName(Constant.INTRADAY_NIFTY_SOURCE_DIR);
@@ -100,6 +101,7 @@ public class IntraDayEquityService {
 						diffEqty.setChnginOI(thseq.getChnginOI() - eqty.get().getChnginOI());
 						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
 						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
+						//diffEqty.setPrevEquity(null);
 						thseq.setPrevEquity(diffEqty);
 					}
 				});

@@ -2,6 +2,7 @@ package com.example.stock.scheduler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,32 +47,37 @@ public class Scheduler {
 	private final static Logger logger = LoggerFactory.getLogger(Scheduler.class);
 	
 	@Scheduled(cron = "0/1 * * * * ?") //Runs job for every second daily
-	public void cronJobForNifty() throws Exception {
+	public void cronJobForNiftyPremiumDk() throws Exception {
 		
 		Map<String, Object> config = configService.getConfig();
-		List<Double> triggers = (List<Double>) config.get(Constant.TRIGGER_RANGE);
+		List<Integer> triggers = (List<Integer>) config.get(Constant.TRIGGER_RANGE);
 
 		String niftyPrice = "https://www.nseindia.com/homepage/Indices1.json";
 
 		JSONObject response = HTTPConnection.send(niftyPrice);
 
 		JSONArray array = response.getJSONArray("data");
-		Double value = 0d;
+		//Double value = 0d;
 		for (int j = 0; j < array.length(); j++) {
 			JSONObject jsonobj = (JSONObject) array.get(j);
 			if (jsonobj.get("name").equals("NIFTY 50")) {
-				value = Double.parseDouble(jsonobj.get("lastPrice").toString().replace(",", ""));
-					Double lastValue = 0d;
+				
+				Double currentVal = Double.parseDouble(jsonobj.get("lastPrice").toString().replace(",", ""));
+				int value = currentVal.intValue();
+					int lastValue = 0;
 					
 					if(!config.isEmpty()) {
 						if (config.containsKey(Constant.TRIGGER_LAST_VALUE))
-							lastValue = Double.parseDouble(config.get(Constant.TRIGGER_LAST_VALUE).toString());
+							lastValue = Integer.parseInt(config.get(Constant.TRIGGER_LAST_VALUE).toString());
 						
-						if (triggers.contains(value) && !value.equals(lastValue)) {
+						int nearestValue = triggers.stream()
+					            .min(Comparator.comparingInt(i -> Math.abs(i - value))).orElse(0);
+						
+						if (triggers.contains(nearestValue) && nearestValue !=lastValue) {
 							Map<String, Object> triggerValue = new HashMap<String, Object>();
-							triggerValue.put(Constant.TRIGGER_LAST_VALUE, value);
+							triggerValue.put(Constant.TRIGGER_LAST_VALUE, nearestValue);
 							configService.saveConfig(triggerValue);
-							equityService.saveNiftyEquityDerivatives();
+							equityService.saveNiftyPrimiumDK();
 
 							logger.info("Matched trigger range "+dateTimeFormatter.format(LocalDateTime.now()));
 							break;
@@ -80,7 +86,7 @@ public class Scheduler {
 				break;
 			}
 		}
-		TimeUnit.SECONDS.sleep(2);
+		//TimeUnit.SECONDS.sleep(2);
 	}
 	
 	@Scheduled(cron = "0 */8 * ? * *") //Runs job after every 8 Min daily

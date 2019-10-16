@@ -28,6 +28,8 @@ public class Constant {
 	public static final String FII_SOURCE_DIR = "activitySourceDir";
 	public static final String STOCK_OPTIONS_SOURCE_DIR ="stockEquitySourceDir";
 	public static final String INTRADAY_NIFTY_SOURCE_DIR = "intraDayEquitySourceDir";
+	public static final String MONTHLY_NIFTY_SOURCE_DIR = "monthlyEquitySourceDir";
+	public static final String NIFTY_PRIMIUMDK_SOURCE_DIR = "niftyPremiumDKSourceDir";
 	
 	public static String EQUITY_CHART_URL = "https://www.nseindia.com/live_market/dynaContent/live_watch/option_chain/optionKeys.jsp?symbol=NIFTY"; 
 }

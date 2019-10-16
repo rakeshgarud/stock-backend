@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -33,9 +34,16 @@ public class StockMainTest {
 	public static List<Stock> stocks = new ArrayList<Stock>();
 	private static String DIR = "D:\\GIT";
 
-	public static void main(String[] args) throws ParseException, IOException {
+	public static void main(String[] args) throws ParseException, Exception {
 		//sendMail();
-		
+		int[] numbers = {11200,11250,11300,11350,11400,11450,11500,11550,11600,11650,11700};
+		List<Integer> list = Arrays.stream(numbers).boxed().collect(Collectors.toList());
+
+		double n = 11478.55;
+
+		int c = list.stream()
+		            .min(Comparator.comparingInt(i -> Math.abs(i - (int)n))).orElse(0);
+		System.out.println(c);
 	}
 
 	

@@ -21,6 +21,8 @@ public interface EquityService {
 	
 	public List<StockOptionsEquity> serachStocksOptionEquity(SearchFilter search);
 
+	void saveNiftyPrimiumDK();
+
 	//public List<StockOptionsEquity> getStockOptionPremiumDK(SearchFilter search);
 
 	
