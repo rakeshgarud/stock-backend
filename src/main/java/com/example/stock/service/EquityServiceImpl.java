@@ -47,24 +47,6 @@ public class EquityServiceImpl implements EquityService {
 	private StockOptionsEquityLookupService equityLookupService ;
 
 	@Override
-	public void saveNiftyPrimiumDK() {
-		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(Constant.EQUITY_CHART_URL);
-		List<NiftyEquityDerivative> equities = new ArrayList<NiftyEquityDerivative>();
-		resultObj.forEach(s -> {
-			ObjectMapper mapper = new ObjectMapper();
-			NiftyEquityDerivative equity = new NiftyEquityDerivative();
-			equity = mapper.convertValue(s, NiftyEquityDerivative.class);
-			equity.setDate(DateUtil.getCurretDate());
-			equity.setId(null);
-			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
-			equities.add(equity);
-		});
-		String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_PRIMIUMDK_SOURCE_DIR);
-		FileUtil.saveNiftyOptionsEquityAsJsonFile(equities, sourceDir);
-		equityDerivativeRepository.saveAll(equities);
-	}
-
-	@Override
 	public void saveNiftyEquityDerivatives() {
 		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(Constant.EQUITY_CHART_URL);
 		List<NiftyEquityDerivative> equities = new ArrayList<NiftyEquityDerivative>();

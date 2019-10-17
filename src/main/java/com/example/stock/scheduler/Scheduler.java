@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +19,7 @@ import com.example.stock.constants.Constant;
 import com.example.stock.service.ConfigService;
 import com.example.stock.service.EquityService;
 import com.example.stock.service.IntraDayEquityService;
+import com.example.stock.service.NiftyPremiumDKService;
 import com.example.stock.service.StockOptionsEquityLookupService;
 import com.example.stock.service.StockService;
 import com.example.stock.util.HTTPConnection;
@@ -36,6 +36,9 @@ public class Scheduler {
 	@Autowired
 	private StockOptionsEquityLookupService equityLookupService;
 
+	@Autowired
+	private NiftyPremiumDKService niftyPremiumDKService;
+	
 	@Autowired
 	ConfigService configService;
 	
@@ -77,7 +80,7 @@ public class Scheduler {
 							Map<String, Object> triggerValue = new HashMap<String, Object>();
 							triggerValue.put(Constant.TRIGGER_LAST_VALUE, nearestValue);
 							configService.saveConfig(triggerValue);
-							equityService.saveNiftyPrimiumDK();
+							niftyPremiumDKService.saveNiftyPremiumDK();
 
 							logger.info("Matched trigger range "+dateTimeFormatter.format(LocalDateTime.now()));
 							break;
