@@ -56,7 +56,7 @@ public class NiftyPremiumDKService {
 	}
 
 	
-	public List<NiftyPremiumDK> serachIntraDayNiftyEquity(SearchFilter search) {
+	public List<NiftyPremiumDK> serachPremiumDecayNifty(SearchFilter search) {
 
 		List<NiftyPremiumDK> finalEquity = new ArrayList<NiftyPremiumDK>();
 		try {
@@ -69,7 +69,7 @@ public class NiftyPremiumDKService {
 			}
 			List<Date> dates = niftyPremiumDKRepository.getDistinctDateBetweenRange(startDate, endDate);
 			for (Date date : dates) {
-				finalEquity.addAll(getEquitiesByDates(date, date, search));
+				finalEquity.addAll(getPremiumDecayByDates(date, date, search));
 			}
 		} catch (Exception e) {
 			logger.error("NiftyPremiumDKService : Error",e);
@@ -92,8 +92,8 @@ public class NiftyPremiumDKService {
 				List<NiftyPremiumDK> niftyPremium = niftyPremiumDKRepository.getEquitiesBetweenDatesAndByType(startDate, endDate);
 				double currentPrice = getNearestPrice(niftyPremium.get(0).getCurrentPrice());
 				search.setStrikePrice(currentPrice);
-				List<NiftyPremiumDK> thisEqty = getEquitiesByDates(thisDate, thisDate, search);
-				List<NiftyPremiumDK> prevEqty = getEquitiesByDates(prevDate, prevDate, search);
+				List<NiftyPremiumDK> thisEqty = getPremiumDecayByDates(thisDate, thisDate, search);
+				List<NiftyPremiumDK> prevEqty = getPremiumDecayByDates(prevDate, prevDate, search);
 				thisEqty.stream().forEach(thseq -> {
 
 					Optional<NiftyPremiumDK> eqty = prevEqty.stream()
@@ -119,7 +119,7 @@ public class NiftyPremiumDKService {
 		return null;
 	}
 
-	private List<NiftyPremiumDK> getEquitiesByDates(Date startDate, Date endDate, SearchFilter search) throws Exception{
+	private List<NiftyPremiumDK> getPremiumDecayByDates(Date startDate, Date endDate, SearchFilter search) throws Exception{
 		List<Filter> filters = search.getFilter();
 
 		List<NiftyPremiumDK> finalEquity = new ArrayList<NiftyPremiumDK>();
