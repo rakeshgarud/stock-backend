@@ -97,9 +97,11 @@ public class IntraDayEquityService {
 					if (eqty.isPresent()) {
 						IntraDayEquity diffEqty = eqty.get();
 						diffEqty.setOi(thseq.getOi() - eqty.get().getOi());
-						diffEqty.setChnginOI(thseq.getChnginOI() - eqty.get().getChnginOI());
+						diffEqty.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
 						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
 						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
+						diffEqty.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
+						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolume());
 						thseq.setPrevEquity(diffEqty);
 					}
 				});

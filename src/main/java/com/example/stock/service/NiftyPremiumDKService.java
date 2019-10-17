@@ -36,7 +36,7 @@ public class NiftyPremiumDKService {
 	@Autowired
 	private ConfigService configService;
 	
-	public void saveNiftyPremiumDK() {
+	public void saveNiftyPremiumDK(double currentPrice) {
 		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(Constant.EQUITY_CHART_URL);
 		List<NiftyPremiumDK> equities = new ArrayList<NiftyPremiumDK>();
 		Date createdDate = DateUtil.getDateWithoutSec( new Date());
@@ -47,6 +47,7 @@ public class NiftyPremiumDKService {
 			equity.setDate(createdDate);
 			equity.setId(null);
 			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
+			equity.setCurrentPrice(currentPrice);
 			equities.add(equity);
 		});
 		String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_PRIMIUMDK_SOURCE_DIR);
@@ -88,6 +89,9 @@ public class NiftyPremiumDKService {
 			for (Date date : dates) {
 				Date thisDate = date;
 				Date prevDate = DateUtil.addMinutesToDate(thisDate,-8);
+				List<NiftyPremiumDK> niftyPremium = niftyPremiumDKRepository.getEquitiesBetweenDatesAndByType(startDate, endDate);
+				double currentPrice = getNearestPrice(niftyPremium.get(0).getCurrentPrice());
+				search.setStrikePrice(currentPrice);
 				List<NiftyPremiumDK> thisEqty = getEquitiesByDates(thisDate, thisDate, search);
 				List<NiftyPremiumDK> prevEqty = getEquitiesByDates(prevDate, prevDate, search);
 				thisEqty.stream().forEach(thseq -> {
@@ -97,9 +101,11 @@ public class NiftyPremiumDKService {
 					if (eqty.isPresent()) {
 						NiftyPremiumDK diffEqty = eqty.get();
 						diffEqty.setOi(thseq.getOi() - eqty.get().getOi());
-						diffEqty.setChnginOI(thseq.getChnginOI() - eqty.get().getChnginOI());
+						diffEqty.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
 						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
 						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
+						diffEqty.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
+						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolume());
 						thseq.setPrevEquity(diffEqty);
 					}
 				});
@@ -174,5 +180,14 @@ public class NiftyPremiumDKService {
 		});
 
 		return list;
+	}
+	
+	private double getNearestPrice(double currentPrice) {
+		Map<String, Object> config = configService.getConfig();
+		List<Integer> triggers = (List<Integer>) config.get(Constant.TRIGGER_RANGE);
+		
+		int nearestValue = triggers.stream()
+	            .min(Comparator.comparingInt(i -> Math.abs(i - (int)currentPrice))).orElse(0);
+		return nearestValue;
 	}
 }

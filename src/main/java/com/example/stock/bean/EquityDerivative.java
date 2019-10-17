@@ -45,7 +45,14 @@ public abstract class EquityDerivative {
 	@Column
 	private double postionsVol;
 	
+	@Column
+	private double currentPrice;
 	
+	@Transient
+	private double chnginDif;
+	
+	@Transient
+	private double volumeDif;
 	
 	@Transient
 	private EquityDerivative prevEquity;
@@ -154,7 +161,25 @@ public abstract class EquityDerivative {
 		this.postionsVol = postionsVol;
 	}
 	
+	public double getChnginDif() {
+		return chnginDif;
+	}
+	public void setChnginDif(double chnginDif) {
+		this.chnginDif = chnginDif;
+	}
+	public double getVolumeDif() {
+		return volumeDif;
+	}
+	public void setVolumeDif(double volumeDif) {
+		this.volumeDif = volumeDif;
+	}
 	
+	public double getCurrentPrice() {
+		return currentPrice;
+	}
+	public void setCurrentPrice(double currentPrice) {
+		this.currentPrice = currentPrice;
+	}
 	@Override
 	public String toString() {
 		return "EquityDerivative [oi=" + oi + ", changeInOI=" + chnginOI + ", volume=" + volume + ", iv=" + iv

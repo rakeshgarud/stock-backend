@@ -22,7 +22,7 @@ import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.dto.SearchFilter;
 import com.example.stock.service.ConfigService;
-import com.example.stock.service.EquityService;
+import com.example.stock.service.NiftyEquityService;
 import com.example.stock.service.IntraDayEquityService;
 import com.example.stock.service.MonthlyEquityService;
 import com.example.stock.util.DateUtil;
@@ -37,7 +37,7 @@ public class EquityOptionsController {
 	private final static Logger logger = LoggerFactory.getLogger(EquityOptionsController.class);
 	
 	@Autowired
-	private EquityService equityService;
+	private NiftyEquityService equityService;
 	
 	@Autowired
 	ConfigService configService; 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.stock.constants.Constant;
 import com.example.stock.service.ConfigService;
-import com.example.stock.service.EquityService;
+import com.example.stock.service.NiftyEquityService;
 import com.example.stock.service.IntraDayEquityService;
 import com.example.stock.service.NiftyPremiumDKService;
 import com.example.stock.service.StockOptionsEquityLookupService;
@@ -31,7 +31,7 @@ public class Scheduler {
 	StockService stockService;
 	
 	@Autowired
-	EquityService equityService;
+	NiftyEquityService equityService;
 	
 	@Autowired
 	private StockOptionsEquityLookupService equityLookupService;
@@ -80,7 +80,7 @@ public class Scheduler {
 							Map<String, Object> triggerValue = new HashMap<String, Object>();
 							triggerValue.put(Constant.TRIGGER_LAST_VALUE, nearestValue);
 							configService.saveConfig(triggerValue);
-							niftyPremiumDKService.saveNiftyPremiumDK();
+							niftyPremiumDKService.saveNiftyPremiumDK(currentVal);
 
 							logger.info("Matched trigger range "+dateTimeFormatter.format(LocalDateTime.now()));
 							break;

@@ -28,4 +28,7 @@ public interface NiftyPremiumDKRepository extends CrudRepository<NiftyPremiumDK,
 	@Query(value = "from NiftyPremiumDK t where strikePrice =:strikePrice AND date BETWEEN :startDate AND :endDate AND type =:type order by date")
 	public List<NiftyPremiumDK> getEquitiesByStrikePriceBetweenDatesAndByType(@Param("startDate")Date startDate,@Param("endDate")Date endDate,@Param("strikePrice")double strikePrice,@Param("type") int type);
 
+	@Query(value = "from NiftyPremiumDK t where date BETWEEN :startDate AND :endDate order by date")
+	public List<NiftyPremiumDK> getEquitiesBetweenDatesAndByType(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
+
 }
