@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -56,7 +55,7 @@ public class NiftyPremiumDKService {
 	}
 
 	
-	public List<NiftyPremiumDK> serachPremiumDecayNifty(SearchFilter search) {
+	public List<NiftyPremiumDK> serachIntraDayNiftyEquity(SearchFilter search) {
 
 		List<NiftyPremiumDK> finalEquity = new ArrayList<NiftyPremiumDK>();
 		try {
@@ -69,7 +68,7 @@ public class NiftyPremiumDKService {
 			}
 			List<Date> dates = niftyPremiumDKRepository.getDistinctDateBetweenRange(startDate, endDate);
 			for (Date date : dates) {
-				finalEquity.addAll(getPremiumDecayByDates(date, date, search));
+				finalEquity.addAll(getEquitiesByDates(date, date, search));
 			}
 		} catch (Exception e) {
 			logger.error("NiftyPremiumDKService : Error",e);
@@ -87,30 +86,10 @@ public class NiftyPremiumDKService {
 			List<Date> dates = niftyPremiumDKRepository.getDistinctDateBetweenRange(startDate, endDate);
 			List<NiftyPremiumDK> searchedEquity = new ArrayList<NiftyPremiumDK>();
 			for (Date date : dates) {
-				Date thisDate = date;
-				Date prevDate = DateUtil.addMinutesToDate(thisDate,-8);
-				List<NiftyPremiumDK> niftyPremium = niftyPremiumDKRepository.getEquitiesBetweenDatesAndByType(startDate, endDate);
+				List<NiftyPremiumDK> niftyPremium = niftyPremiumDKRepository.getEquitiesBetweenDatesAndByType(date, date);
 				double currentPrice = getNearestPrice(niftyPremium.get(0).getCurrentPrice());
 				search.setStrikePrice(currentPrice);
-				List<NiftyPremiumDK> thisEqty = getPremiumDecayByDates(thisDate, thisDate, search);
-				List<NiftyPremiumDK> prevEqty = getPremiumDecayByDates(prevDate, prevDate, search);
-				thisEqty.stream().forEach(thseq -> {
-
-					Optional<NiftyPremiumDK> eqty = prevEqty.stream()
-							.filter(pre -> pre.getStrikePrice() == thseq.getStrikePrice()).findFirst();
-					if (eqty.isPresent()) {
-						NiftyPremiumDK diffEqty = eqty.get();
-						diffEqty.setOi(thseq.getOi() - eqty.get().getOi());
-						diffEqty.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
-						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
-						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
-						diffEqty.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
-						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolume());
-						thseq.setPrevEquity(diffEqty);
-					}
-				});
-
-				searchedEquity.addAll(thisEqty);
+				searchedEquity.addAll(getEquitiesByDates(date, date, search));
 			}
 			return searchedEquity;
 		} catch (Exception e) {
@@ -119,7 +98,7 @@ public class NiftyPremiumDKService {
 		return null;
 	}
 
-	private List<NiftyPremiumDK> getPremiumDecayByDates(Date startDate, Date endDate, SearchFilter search) throws Exception{
+	private List<NiftyPremiumDK> getEquitiesByDates(Date startDate, Date endDate, SearchFilter search) throws Exception{
 		List<Filter> filters = search.getFilter();
 
 		List<NiftyPremiumDK> finalEquity = new ArrayList<NiftyPremiumDK>();

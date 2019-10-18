@@ -118,7 +118,7 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
 						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
 						diffEqty.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
-						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolume());
+						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolumeDif());
 						thseq.setPrevEquity(diffEqty);
 					}
 				});
