@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.stock.bean.IntraDayEquity;
 import com.example.stock.bean.MonthlyEquity;
 import com.example.stock.bean.NiftyEquityDerivative;
+import com.example.stock.bean.NiftyPremiumDK;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.dto.SearchFilter;
 import com.example.stock.service.ConfigService;
 import com.example.stock.service.NiftyEquityService;
+import com.example.stock.service.NiftyPremiumDKService;
 import com.example.stock.service.IntraDayEquityService;
 import com.example.stock.service.MonthlyEquityService;
 import com.example.stock.util.DateUtil;
@@ -38,6 +40,9 @@ public class EquityOptionsController {
 	
 	@Autowired
 	private NiftyEquityService equityService;
+	
+	@Autowired
+	private NiftyPremiumDKService niftyPremiumDKService;
 	
 	@Autowired
 	ConfigService configService; 
@@ -116,6 +121,16 @@ public class EquityOptionsController {
 			return monthlyEquityService.getMonthyYesterdayMinusToday(search);
 		} catch (Exception e) {
 			logger.error("Error while processing request- /intraday");
+		}
+		return Arrays.asList();
+	}
+	
+	@PostMapping(value="/search/premium-decay",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<NiftyPremiumDK> getPremiumDecay(@RequestBody SearchFilter search) {
+		try {
+			return niftyPremiumDKService.serachIntraDayNiftyEquity(search);
+		} catch (Exception e) {
+			logger.error("Error while processing request- /search/PremiumDecay");
 		}
 		return Arrays.asList();
 	}

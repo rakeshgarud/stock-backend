@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.stock.bean.ExchangeActivity;
+import com.example.stock.bean.IntraDayEquity;
 import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.Stock;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.constants.Constant;
 import com.example.stock.repo.ExchangeActivityRepository;
+import com.example.stock.repo.IntraDayNiftyEquityRepository;
 import com.example.stock.repo.NiftyEquityDerivativeRepository;
 import com.example.stock.repo.StockOptionsEquityRepository;
 import com.example.stock.repo.StockRepository;
@@ -40,6 +42,9 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	private NiftyEquityDerivativeRepository equityDerivativeRepository;
 	
 	@Autowired
+	private IntraDayNiftyEquityRepository intraDayNiftyEquityRepository;
+	
+	@Autowired
 	private StockOptionsEquityRepository stockOptionsequityRepository;
 	
 	@Autowired
@@ -48,9 +53,13 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	//Load equity nifty,stock option data from file to DB
 	@Override
 	public void loadEquityOptionsToDB() {
-		logger.info("Loading equity data to DB");
+		logger.info("Loading Nifty and Stock Options data to DB");
 		String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_SOURCE_DIR);
 		loadEquityFromFile(sourceDir, ".json");
+		
+		sourceDir = (String) configService.getConfigByName(Constant.INTRADAY_NIFTY_SOURCE_DIR);
+		loadNiftyIntradayFromFile(sourceDir, ".json");
+		
 		sourceDir = (String) configService.getConfigByName(Constant.STOCK_OPTIONS_SOURCE_DIR);
 		loadStocksOptionsEquityFromFile(sourceDir, ".json");
 	}
@@ -96,6 +105,39 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	}
 	
 
+	private List<IntraDayEquity> loadNiftyIntradayFromFile(String sourceDir, String fileFormat) {
+		String DIR = null;
+		double postionsVol =0.0;
+		if (sourceDir != null) {
+			DIR = sourceDir;
+		}
+		List<IntraDayEquity> equities = new ArrayList<IntraDayEquity>();
+		File[] files = FileUtil.getAllFiles(DIR, fileFormat);
+		if (files == null) {
+			return Arrays.asList();
+		}
+		for (int i = 0; i < files.length; i++) {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.setSerializationInclusion(Include.NON_NULL);
+			try {
+				//equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
+				equities = Arrays.asList(mapper.readValue(files[i], IntraDayEquity[].class));
+				
+				for (int j =0; j < equities.size(); j++) {
+					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();
+					equities.get(j).setPostionsVol(postionsVol);
+					//System.out.println(equities.get(j).getPostionsVol());
+				}
+				intraDayNiftyEquityRepository.saveAll(equities);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return equities;
+	}
+	
+	
 	@Override
 	public void loadFIIDataToDB() {
 		logger.info("Loading activity data to DB");
