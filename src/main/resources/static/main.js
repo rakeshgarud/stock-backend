@@ -264,20 +264,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _list_stocks_list_stocks_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./list-stocks/list-stocks.component */ "./src/app/list-stocks/list-stocks.component.ts");
 /* harmony import */ var _menu_menu_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./menu/menu.component */ "./src/app/menu/menu.component.ts");
 /* harmony import */ var _equity_equity_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./equity/equity.component */ "./src/app/equity/equity.component.ts");
-/* harmony import */ var _activity_activity_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./activity/activity.component */ "./src/app/activity/activity.component.ts");
-/* harmony import */ var _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./all-load-data/all-load-data.component */ "./src/app/all-load-data/all-load-data.component.ts");
-/* harmony import */ var _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./stock-option-chain/stock-option-chain.component */ "./src/app/stock-option-chain/stock-option-chain.component.ts");
-/* harmony import */ var _intra_day_intra_day_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./intra-day/intra-day.component */ "./src/app/intra-day/intra-day.component.ts");
-/* harmony import */ var _yesterDay_today_yesterDay_today__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./yesterDay-today/yesterDay-today */ "./src/app/yesterDay-today/yesterDay-today.ts");
-/* harmony import */ var _premium_decay_premium_decay_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./premium-decay/premium-decay.component */ "./src/app/premium-decay/premium-decay.component.ts");
+/* harmony import */ var _premiumdk_premiumdk_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./premiumdk/premiumdk.component */ "./src/app/premiumdk/premiumdk.component.ts");
+/* harmony import */ var _activity_activity_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./activity/activity.component */ "./src/app/activity/activity.component.ts");
+/* harmony import */ var _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./all-load-data/all-load-data.component */ "./src/app/all-load-data/all-load-data.component.ts");
+/* harmony import */ var _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./stock-option-chain/stock-option-chain.component */ "./src/app/stock-option-chain/stock-option-chain.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
 
 
 
@@ -303,12 +299,10 @@ var AppModule = /** @class */ (function () {
                 _list_stocks_list_stocks_component__WEBPACK_IMPORTED_MODULE_8__["ListStocksComponent"],
                 _menu_menu_component__WEBPACK_IMPORTED_MODULE_9__["MenuComponent"],
                 _equity_equity_component__WEBPACK_IMPORTED_MODULE_10__["EquityComponent"],
-                _yesterDay_today_yesterDay_today__WEBPACK_IMPORTED_MODULE_15__["YesterDayTodayComponent"],
-                _activity_activity_component__WEBPACK_IMPORTED_MODULE_11__["ActivityComponent"],
-                _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_12__["AllLoadDataComponent"],
-                _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_13__["StockOptionChainComponent"],
-                _intra_day_intra_day_component__WEBPACK_IMPORTED_MODULE_14__["IntraDayComponent"],
-                _premium_decay_premium_decay_component__WEBPACK_IMPORTED_MODULE_16__["PremiumDecayComponent"]
+                _premiumdk_premiumdk_component__WEBPACK_IMPORTED_MODULE_11__["PremiumdkComponent"],
+                _activity_activity_component__WEBPACK_IMPORTED_MODULE_12__["ActivityComponent"],
+                _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_13__["AllLoadDataComponent"],
+                _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_14__["StockOptionChainComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -340,14 +334,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _list_stocks_list_stocks_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./list-stocks/list-stocks.component */ "./src/app/list-stocks/list-stocks.component.ts");
 /* harmony import */ var _equity_equity_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./equity/equity.component */ "./src/app/equity/equity.component.ts");
-/* harmony import */ var _activity_activity_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./activity/activity.component */ "./src/app/activity/activity.component.ts");
-/* harmony import */ var _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./all-load-data/all-load-data.component */ "./src/app/all-load-data/all-load-data.component.ts");
-/* harmony import */ var _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stock-option-chain/stock-option-chain.component */ "./src/app/stock-option-chain/stock-option-chain.component.ts");
-/* harmony import */ var _intra_day_intra_day_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./intra-day/intra-day.component */ "./src/app/intra-day/intra-day.component.ts");
-/* harmony import */ var _yesterDay_today_yesterDay_today__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./yesterDay-today/yesterDay-today */ "./src/app/yesterDay-today/yesterDay-today.ts");
-/* harmony import */ var _premium_decay_premium_decay_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./premium-decay/premium-decay.component */ "./src/app/premium-decay/premium-decay.component.ts");
-
-
+/* harmony import */ var _premiumdk_premiumdk_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./premiumdk/premiumdk.component */ "./src/app/premiumdk/premiumdk.component.ts");
+/* harmony import */ var _activity_activity_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./activity/activity.component */ "./src/app/activity/activity.component.ts");
+/* harmony import */ var _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./all-load-data/all-load-data.component */ "./src/app/all-load-data/all-load-data.component.ts");
+/* harmony import */ var _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stock-option-chain/stock-option-chain.component */ "./src/app/stock-option-chain/stock-option-chain.component.ts");
 
 
 
@@ -356,14 +346,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', component: _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_4__["AllLoadDataComponent"] },
+    { path: '', component: _all_load_data_all_load_data_component__WEBPACK_IMPORTED_MODULE_5__["AllLoadDataComponent"] },
     { path: 'stock', component: _list_stocks_list_stocks_component__WEBPACK_IMPORTED_MODULE_1__["ListStocksComponent"] },
-    { path: 'stock-opitons-chain', component: _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_5__["StockOptionChainComponent"] },
+    { path: 'stock-opitons-chain', component: _stock_option_chain_stock_option_chain_component__WEBPACK_IMPORTED_MODULE_6__["StockOptionChainComponent"] },
     { path: 'equity', component: _equity_equity_component__WEBPACK_IMPORTED_MODULE_2__["EquityComponent"] },
-    { path: 'yesterday-today', component: _yesterDay_today_yesterDay_today__WEBPACK_IMPORTED_MODULE_7__["YesterDayTodayComponent"] },
-    { path: 'exchange-activity', component: _activity_activity_component__WEBPACK_IMPORTED_MODULE_3__["ActivityComponent"] },
-    { path: 'intra-day', component: _intra_day_intra_day_component__WEBPACK_IMPORTED_MODULE_6__["IntraDayComponent"] },
-    { path: 'premium-decay', component: _premium_decay_premium_decay_component__WEBPACK_IMPORTED_MODULE_8__["PremiumDecayComponent"] }
+    { path: 'premium-dk', component: _premiumdk_premiumdk_component__WEBPACK_IMPORTED_MODULE_3__["PremiumdkComponent"] },
+    { path: 'exchange-activity', component: _activity_activity_component__WEBPACK_IMPORTED_MODULE_4__["ActivityComponent"] }
     /* { path: 'all-data-download', component: AllLoadDataComponent } */
 ];
 var routing = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes);
@@ -389,7 +377,7 @@ module.exports = ".grid-container {\r\n    display: -ms-grid;\r\n    display: gr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"stock-pan\">\n  <div class=\"row\">\n    <div class=\"col-md-10 \">\n      <h2> Option Chain Nifty.</h2>\n    </div>\n   <!--  <div class=\"col-md-2\">\n      <button class=\"btn btn-default\" (click)=\"loadEquityData()\"> Import Data</button>\n    </div> -->\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-12\">\n      <div class=\"row seperator\">\n      </div>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-2\">\n      <label for=\"start\">Strike Price:</label>\n      <input class=\"form-control\" type=\"text\" id=\"strikePrice\" name=\"strikePrice\"\n        (change)=\"onStrikeChange($event.target.value)\">\n    </div>\n    <!-- <div class=\"col-md-3\">\n      <label for=\"days\">Symbol:</label>\n      <select class=\"form-control\" (change)=\"symbolDropDown($event.target.value)\">\n          <option value=''>\n              Nifty\n            </option>\n        <option *ngFor=\"let symbol of symbols\" value={{symbol.symbol}}>\n          {{symbol.companyName}}\n        </option>\n      </select>\n    </div> -->\n    <div class=\"col-md-2\">\n      <label for=\"start\">Start date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n        (change)=\"onDateChange($event.target.value,true)\" />\n    </div>\n    <div class=\"col-md-2\">\n      <label for=\"start\">End date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n        (change)=\"onDateChange($event.target.value,false)\">\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n            style=\"margin-left:10px; margin-right:10px;\">\n            <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n              <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n              <span class=\"slider round\"></span>\n            </label> -->\n          </div>\n        </div>\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n              <h4>Call</h4>\n            </div>\n            <div class=\"col-md-1\">\n              <button class=\"btn btn-info\" (click)=\"getData('CALL')\"> Get Call</button>\n            </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"customers\">\n            <tr>\n              <th >Date</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('oi',!sortDir)\">OI</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('chnginOI',!sortDir)\">COI</th>\n              <th>IV</th>\n              <th>LTP</th>\n              <th>Net-C</th>\n              <th>Vol</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('strikePrice',!sortDir)\">SP</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('postionsVol',!sortDir)\">V/CHI</th>\n            </tr>\n            <tr *ngIf=\"callEquities == ''\">No record found for above search....!</tr>\n            {{callEquities.date}}\n            <tr *ngFor=\"let equity of callEquities;let i = index\">\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date| date: 'dd/MM/yy'}}</td>\n              <td  *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n            style=\"margin-left:10px; margin-right:10px;\">\n            <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'PUT')\">{{chk.name}}</label>\n            <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n              <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n              <span class=\"slider round\"></span>\n            </label> -->\n          </div>\n        </div>\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n              <h4>PUT</h4>\n            </div>\n            <div class=\"col-md-1\">\n              <button class=\"btn btn-info\" (click)=\"getData('PUT')\"> Get Put</button>\n            </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"customers\">\n            <tr>\n              <th class=\"sort-arrow\" (click)=\"putSortBy('postionsVol',!sortDir)\">V/CHI</th>\n              <th>Date</th>\n              <th  class=\"sort-arrow\" (click)=\"putSortBy('oi',!sortDir)\">OI</th>\n              <th class=\"sort-arrow\" (click)=\"putSortBy('chnginOI',!sortDir)\">C-OI</th>\n              <th>IV</th>\n              <th>LTP</th>\n              <th>Net-C</th>\n              <th>Vol</th>\n              <th class=\"sort-arrow\" (click)=\"putSortBy('strikePrice',!sortDir)\">SP</th>\n            </tr>\n            <tr *ngIf=\"putEquities == ''\">No record found for above search....!</tr>\n            <tr *ngFor=\"let equity of putEquities;let i = index\">\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date | date: 'dd/MM/yy'}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n\n\n  </div>\n</div>"
+module.exports = "<div class=\"stock-pan\">\n  <div class=\"row\">\n    <div class=\"col-md-10 \">\n      <h2> Option Chain Nifty.</h2>\n    </div>\n   <!--  <div class=\"col-md-2\">\n      <button class=\"btn btn-default\" (click)=\"loadEquityData()\"> Import Data</button>\n    </div> -->\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-12\">\n      <div class=\"row seperator\">\n      </div>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-2\">\n      <label for=\"start\">Strike Price:</label>\n      <input class=\"form-control\" type=\"text\" id=\"strikePrice\" name=\"strikePrice\"\n        (change)=\"onStrikeChange($event.target.value)\">\n    </div>\n    <div class=\"col-md-3\">\n      <label for=\"days\">Symbol:</label>\n      <select class=\"form-control\" (change)=\"symbolDropDown($event.target.value)\">\n          <option value=''>\n              Nifty\n            </option>\n        <option *ngFor=\"let symbol of symbols\" value={{symbol.symbol}}>\n          {{symbol.companyName}}\n        </option>\n      </select>\n    </div>\n    <div class=\"col-md-2\">\n      <label for=\"start\">Start date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n        (change)=\"onDateChange($event.target.value,true)\" />\n    </div>\n    <div class=\"col-md-2\">\n      <label for=\"start\">End date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n        (change)=\"onDateChange($event.target.value,false)\">\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n            style=\"margin-left:10px; margin-right:10px;\">\n            <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n              <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n              <span class=\"slider round\"></span>\n            </label> -->\n          </div>\n        </div>\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n              <h4>Call</h4>\n            </div>\n            <div class=\"col-md-1\">\n              <button class=\"btn btn-info\" (click)=\"getData('CALL')\"> Get Call</button>\n            </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"customers\">\n            <tr>\n              <th >Date</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('oi',!sortDir)\">OI</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('chnginOI',!sortDir)\">COI</th>\n              <th>IV</th>\n              <th>LTP</th>\n              <th>Net-C</th>\n              <th>Vol</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('strikePrice',!sortDir)\">SP</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('postionsVol',!sortDir)\">V/CHI</th>\n            </tr>\n            {{callEquities.date}}\n            <tr *ngFor=\"let equity of callEquities;let i = index\">\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date| date: 'dd/MM/yy'}}</td>\n              <td  *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n            style=\"margin-left:10px; margin-right:10px;\">\n            <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'PUT')\">{{chk.name}}</label>\n            <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n              <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n              <span class=\"slider round\"></span>\n            </label> -->\n          </div>\n        </div>\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n              <h4>PUT</h4>\n            </div>\n            <div class=\"col-md-1\">\n              <button class=\"btn btn-info\" (click)=\"getData('PUT')\"> Get Put</button>\n            </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"customers\">\n            <tr>\n              <th class=\"sort-arrow\" (click)=\"putSortBy('postionsVol',!sortDir)\">V/CHI</th>\n              <th>Date</th>\n              <th  class=\"sort-arrow\" (click)=\"putSortBy('oi',!sortDir)\">OI</th>\n              <th class=\"sort-arrow\" (click)=\"putSortBy('chnginOI',!sortDir)\">C-OI</th>\n              <th>IV</th>\n              <th>LTP</th>\n              <th>Net-C</th>\n              <th>Vol</th>\n              <th class=\"sort-arrow\" (click)=\"putSortBy('strikePrice',!sortDir)\">SP</th>\n            </tr>\n            <tr *ngFor=\"let equity of putEquities;let i = index\">\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date | date: 'dd/MM/yy'}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -429,7 +417,7 @@ var EquityComponent = /** @class */ (function () {
     EquityComponent.prototype.ngOnInit = function () {
         this.getCheckfilter();
         // this.getSymbols();
-        // this.getEquities();
+        this.getEquities();
     };
     EquityComponent.prototype.getCheckfilter = function () {
         var _this = this;
@@ -442,7 +430,7 @@ var EquityComponent = /** @class */ (function () {
       this.stockservice.loadEquity().subscribe(data => {
       });
     }; */
-    EquityComponent.prototype.getNifty = function () {
+    EquityComponent.prototype.getEquities = function () {
         var _this = this;
         this.search.filter = this.filtersRequest;
         this.stockservice.getEquityByFilter(this.search)
@@ -464,7 +452,7 @@ var EquityComponent = /** @class */ (function () {
         else {
             this.filtersRequest = this.filtersRequest.filter(function (item) { return item !== obj; });
         }
-        this.getNifty();
+        this.getEquities();
     };
     /* symbolDropDown(symbol: any) {
       this.search.symbol = symbol;
@@ -477,7 +465,7 @@ var EquityComponent = /** @class */ (function () {
     } */
     EquityComponent.prototype.onStrikeChange = function (value) {
         this.search.strikePrice = value;
-        this.getNifty();
+        this.getEquities();
     };
     EquityComponent.prototype.onDateChange = function (value, isStartDate) {
         if (isStartDate) {
@@ -489,7 +477,7 @@ var EquityComponent = /** @class */ (function () {
     };
     EquityComponent.prototype.getData = function (value) {
         this.search.type = value;
-        this.getNifty();
+        this.getEquities();
     };
     EquityComponent.prototype.callSortBy = function (sortBy, sortDir) {
         this.sortDir = sortDir;
@@ -526,147 +514,6 @@ var EquityComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_service_stock_service__WEBPACK_IMPORTED_MODULE_1__["StockService"]])
     ], EquityComponent);
     return EquityComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/intra-day/intra-day.component.css":
-/*!***************************************************!*\
-  !*** ./src/app/intra-day/intra-day.component.css ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".word {\r\n  background: #E0E0E0;\r\n  text-align: center;\r\n  padding: 4px 3px;\r\n  vertical-align: middle;\r\n  font: size 1px;\r\n  border-left:solid 2px #c6c2ba;\r\n  border-top:solid 2px #c6c2ba;\r\n  }\r\n"
-
-/***/ }),
-
-/***/ "./src/app/intra-day/intra-day.component.html":
-/*!****************************************************!*\
-  !*** ./src/app/intra-day/intra-day.component.html ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"stock-pan\">\n    <div class=\"row\">\n      <div class=\"col-md-10 \">\n        <h2> Intraday 8 mins difference.</h2>\n      </div>\n    </div>\n    <div class=\"row seperator\">\n      <div class=\"col-md-12\">\n        <div class=\"row seperator\">\n        </div>\n      </div>\n    </div>\n    <div class=\"row seperator\">\n      <div class=\"col-md-2\">\n        <label for=\"start\">Start Time:</label>\n        <input class=\"form-control\" type=\"time\" id=\"start\" name=\"startDate\"\n          (change)=\"onDateChange($event.target.value,true)\" />\n      </div>\n      <div class=\"col-md-2\">\n        <label for=\"start\">End Time:</label>\n        <input class=\"form-control\" type=\"time\" id=\"end\" name=\"endDate\"\n          (change)=\"onDateChange($event.target.value,false)\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n              style=\"margin-left:10px; margin-right:10px;\">\n              <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            </div>\n          </div>\n          <div class=\"col-md-12\">\n            <div class=\"row\">\n                <div class=\"col-md-10\">\n                    <h4>Call</h4>\n                  </div>\n                  <div class=\"col-md-1\">\n                    <button class=\"btn btn-info\" (click)=\"getData('CALL')\"> Get Call</button>\n                  </div>\n            </div>\n            <div class=\"row seperator\"></div>\n            <table id=\"equityTable\">\n              <tr>\n                <th class=\"word\">Date</th>\n                <th class=\"word\" (click)=\"callSortBy('postionsVol',!sortDir)\">Chg-Vol</th> \n                <th class=\"word\" (click)=\"callSortBy('oi',!sortDir)\">OI</th>\n                <th class=\"word\" (click)=\"callSortBy('chnginOI',!sortDir)\">COI</th>\n                <th class=\"word\" (click)=\"callSortBy('volume',!sortDir)\">Volume</th>\n                <th class=\"word\">IV</th>\n                <th class=\"word\">LTP</th>\n                <th class=\"word\" (click)=\"callSortBy('strikePrice',!sortDir)\">SP</th>\n              </tr>\n              <tr *ngIf=\"callIntradayYesterdayToday == ''\">No record found for above search....!</tr>\n             \n              <tr *ngFor=\"let equity of callIntradayYesterdayToday;let i = index\">\n\n                <td>{{equity.date| date: 'hh-mm'}}</td>\n                <td *ngIf=\"equity.postionsVol!=='NaN'\">{{equity.postionsVol | number:'1.1-1'}}</td> \n                <td><label>{{equity.oi}}</label>\n                </td>\n                <td><label>{{equity.chnginOI}}</label>\n                   <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.chnginDif}}</label> \n                </td>\n                <td>\n                  <label>{{equity.volume | number:'1.1-1'}}</label>\n                   <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label> \n                </td> \n                <td><label>{{equity.iv | number:'1.1-1'}}</label>\n                   <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.iv | number:'1.1-1'}}</label> \n                </td>\n                <td><label >{{equity.ltp | number:'1.1-1'}}</label>\n                   <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> \n                </td>\n                <td>{{equity.strikePrice}}</td>\n              </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-6\">\n          <div class=\"row\">\n            <div class=\"col-md-12\">\n              <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n                style=\"margin-left:10px; margin-right:10px;\">\n                <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'PUT')\">{{chk.name}}</label>\n              </div>\n            </div>\n            <div class=\"col-md-12\">\n              <div class=\"row\">\n                <div class=\"col-md-10\">\n                  <h4>PUT</h4>\n                </div>\n                <div class=\"col-md-1\">\n                  <button class=\"btn btn-info\" (click)=\"getData('PUT')\"> Get Put</button>\n                </div>\n              </div>\n              <div class=\"row seperator\"></div>\n              <table id=\"equityTable\">\n                <tr class=\"word\">\n                  <th class=\"word\" (click)=\"putSortBy('strikePrice',!sortDir)\">SP</th>\n                  <th class=\"word\">LTP</th>\n                  <th class=\"word\">IV</th>\n                  <th class=\"word\" (click)=\"putSortBy('volume',!sortDir)\">Volume</th> \n                  <th class=\"word\" (click)=\"putSortBy('chnginOI',!sortDir)\">C-OI</th>\n                  <th  class=\"word\" (click)=\"putSortBy('oi',!sortDir)\">OI</th>\n                  <th class=\"word\" (click)=\"putSortBy('postionsVol',!sortDir)\">Chg-Vol</th> \n                  <th class=\"word\">Date</th>\n                </tr>\n                <tr *ngFor=\"let equity of putIntradayYesterdayToday;let i = index\">\n\n                    <td>{{equity.strikePrice}}</td>\n                    <td>\n                        <label >{{equity.ltp | number:'1.1-1'}}</label>\n                        <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.ltp| number:'1.1-1'}}</label>\n                    </td> \n                     <td>\n                          <label class=\"strikethrough\">{{equity.iv | number:'1.1-1'}}</label>\n                          <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.iv | number:'1.1-1'}}</label>\n                    </td>\n                    <td>\n                        <label>{{equity.volume | number:'1.1-1'}}</label>\n                        <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.volumeDif | number:'1.1-1'}}</label>\n                    </td> \n                    <td>\n                        <label class=\"strikethrough\">{{equity.chnginOI}}</label>\n                        <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.chnginOI}}</label>\n                    </td>    \n                    <td>\n                      <label class=\"strikethrough\">{{equity.oi}}</label>\n                      <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.oi}}</label>\n                    </td>\n                    <td *ngIf=\"equity.postionsVol!=='NaN'\">{{equity.postionsVol | number:'1.1-1'}}</td> \n                    <td>{{equity.date| date: 'hh-mm'}}</td>\n                  </tr>\n              </table>\n            </div>\n          </div>\n        </div>\n\n\n      </div>\n  </div>"
-
-/***/ }),
-
-/***/ "./src/app/intra-day/intra-day.component.ts":
-/*!**************************************************!*\
-  !*** ./src/app/intra-day/intra-day.component.ts ***!
-  \**************************************************/
-/*! exports provided: IntraDayComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IntraDayComponent", function() { return IntraDayComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _service_stock_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/stock.service */ "./src/app/service/stock.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var IntraDayComponent = /** @class */ (function () {
-    function IntraDayComponent(stockService) {
-        this.stockService = stockService;
-        this.checkBoxFilter = [];
-        this.equities = [];
-        this.search = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
-        this.filtersRequest = [];
-        this.callIntradayYesterdayToday = [];
-        this.putIntradayYesterdayToday = [];
-    }
-    IntraDayComponent.prototype.ngOnInit = function () {
-        this.getCheckfilter();
-    };
-    IntraDayComponent.prototype.getData = function (value) {
-        this.search.type = value;
-        this.getIntradayYesterdayMinusTodayCall();
-    };
-    IntraDayComponent.prototype.getCheckfilter = function () {
-        var _this = this;
-        this.stockService.getFilters("equityFilter").subscribe(function (data) {
-            _this.checkBoxFilter = data;
-        });
-    };
-    IntraDayComponent.prototype.getIntradayYesterdayMinusTodayCall = function () {
-        var _this = this;
-        this.search.filter = this.filtersRequest;
-        this.stockService.getIntraDay(this.startTime, this.endTime, this.search)
-            .subscribe(function (data) {
-            if (_this.search.type == 'CALL') {
-                _this.callIntradayYesterdayToday = data;
-            }
-            else
-                _this.putIntradayYesterdayToday = data;
-        });
-        console.log("Calldata--> " + this.callIntradayYesterdayToday);
-        console.log("putdata--> " + this.putIntradayYesterdayToday);
-    };
-    IntraDayComponent.prototype.checkValue = function (event, obj, type) {
-        this.search.type = type;
-        if (event) {
-            this.filtersRequest.push(obj);
-        }
-        else {
-            this.filtersRequest = this.filtersRequest.filter(function (item) { return item !== obj; });
-        }
-        this.getIntradayYesterdayMinusTodayCall();
-    };
-    IntraDayComponent.prototype.onDateChange = function (value, isStartDate) {
-        if (isStartDate) {
-            this.startTime = value;
-        }
-        else
-            this.endTime = value;
-        //this.getIntradayYesterdayMinusTodayCall();
-    };
-    IntraDayComponent.prototype.callSortBy = function (sortBy, sortDir) {
-        this.sortDir = sortDir;
-        if (this.sortDir) {
-            this.callIntradayYesterdayToday.sort(function (a, b) {
-                return a[sortBy] - b[sortBy];
-            });
-        }
-        else {
-            this.callIntradayYesterdayToday.sort(function (a, b) {
-                return b[sortBy] - a[sortBy];
-            });
-        }
-    };
-    IntraDayComponent.prototype.putSortBy = function (sortBy, sortDir) {
-        this.sortDir = sortDir;
-        if (this.sortDir) {
-            this.putIntradayYesterdayToday.sort(function (a, b) {
-                return a[sortBy] - b[sortBy];
-            });
-        }
-        else {
-            this.putIntradayYesterdayToday.sort(function (a, b) {
-                return b[sortBy] - a[sortBy];
-            });
-        }
-    };
-    IntraDayComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-intra-day',
-            template: __webpack_require__(/*! ./intra-day.component.html */ "./src/app/intra-day/intra-day.component.html"),
-            styles: [__webpack_require__(/*! ./intra-day.component.css */ "./src/app/intra-day/intra-day.component.css")]
-        }),
-        __metadata("design:paramtypes", [_service_stock_service__WEBPACK_IMPORTED_MODULE_1__["StockService"]])
-    ], IntraDayComponent);
-    return IntraDayComponent;
 }());
 
 
@@ -843,7 +690,7 @@ module.exports = "body {margin:0;}\r\n\r\nul {\r\n  list-style-type: none;\r\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ul>\n    <li><a class=\"active\" href=\"#home\">Home</a></li>\n    <li><a routerLink=\"/stock\">Stock Data</a></li>\n    <li><a routerLink=\"/stock-opitons-chain\">Stock Option Chain</a></li>\n    <li><a routerLink=\"/equity\">Nifty Option Chain</a></li>\n    <li><a routerLink=\"/yesterday-today\">Today-Yesterday</a></li>\n    <li><a routerLink=\"/intra-day\">Intra-Day</a></li>\n    <li><a routerLink=\"/exchange-activity\">FII's Data</a></li>\n    <li><a routerLink=\"/premium-decay\">Premium Decay</a></li>\n    \n    <!-- <li><a routerLink=\"/all-data-download\">All Data Download</a></li> -->\n  </ul>\n"
+module.exports = "<ul class=\"active\">\n    <li><a  href=\"#home\">Home</a></li>\n    <li><a routerLink=\"/stock\">Stock Data</a></li>\n    <li><a routerLink=\"/stock-opitons-chain\">Stock Option Chain Data</a></li>\n    <li><a routerLink=\"/equity\">Option Chain Data</a></li>\n    <li><a routerLink=\"/premium-dk\">Today-Yesterday EOD</a></li>\n    <li><a routerLink=\"/exchange-activity\">FII's Data</a></li>\n    <!-- <li><a routerLink=\"/all-data-download\">All Data Download</a></li> -->\n  </ul>\n"
 
 /***/ }),
 
@@ -888,38 +735,38 @@ var MenuComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/premium-decay/premium-decay.component.css":
-/*!***********************************************************!*\
-  !*** ./src/app/premium-decay/premium-decay.component.css ***!
-  \***********************************************************/
+/***/ "./src/app/premiumdk/premiumdk.component.css":
+/*!***************************************************!*\
+  !*** ./src/app/premiumdk/premiumdk.component.css ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".word {\r\n    background: #E0E0E0;\r\n    text-align: center;\r\n    padding: 4px 3px;\r\n    vertical-align: middle;\r\n    font: size 1px;\r\n    border-left:solid 2px #c6c2ba;\r\n    border-top:solid 2px #c6c2ba;\r\n    }\r\n  "
+module.exports = ".strikethrough {\r\n    text-decoration: line-through;\r\n}"
 
 /***/ }),
 
-/***/ "./src/app/premium-decay/premium-decay.component.html":
-/*!************************************************************!*\
-  !*** ./src/app/premium-decay/premium-decay.component.html ***!
-  \************************************************************/
+/***/ "./src/app/premiumdk/premiumdk.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/premiumdk/premiumdk.component.html ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"stock-pan\">\n  <div class=\"row\">\n    <div class=\"col-md-10 \">\n      <h2> Premium Decay Calculation.</h2>\n    </div>\n   <!--  <div class=\"col-md-2\">\n      <button class=\"btn btn-default\" (click)=\"loadEquityData()\"> Import Data</button>\n    </div> -->\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-12\">\n      <div class=\"row seperator\">\n      </div>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-2\">\n      <label for=\"start\">Start date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n        (change)=\"onDateChange($event.target.value,true)\" />\n    </div>\n    <div class=\"col-md-2\">\n      <label for=\"start\">End date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n        (change)=\"onDateChange($event.target.value,false)\">\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n              <h4>Call</h4>\n            </div>\n            <div class=\"col-md-1\">\n              <button class=\"btn btn-info\" (click)=\"getPremiumDecayData('CALL')\"> Get Call</button>\n            </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"customers\">\n            <tr>\n              <th class=\"word\">Date</th>\n              <th class=\"word\">OI</th>\n              <th class=\"word\" >COI</th>\n              <th class=\"word\" >IV</th>\n              <th class=\"word\" >LTP</th>\n              <th class=\"word\" >SP</th>\n            </tr>\n            <tr *ngFor=\"let equity of callPremiumDecay;let i = index\">\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date| date: 'dd/MM/yy'}}</td>\n              <td  *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n              <h4>PUT</h4>\n            </div>\n            <div class=\"col-md-1\">\n              <button class=\"btn btn-info\" (click)=\"getPremiumDecayData('PUT')\"> Get Put</button>\n            </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"customers\">\n            <tr>\n              <th class=\"word\">SP</th>\n              <th class=\"word\">LTP</th>\n              <th class=\"word\">IV</th>\n               <th class=\"word\">C-OI</th>\n              <th class=\"word\">OI</th>\n              <th class=\"word\">Date</th>\n              \n            </tr>\n            <tr *ngFor=\"let equity of putPremiumDecay;let i = index\">\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n              <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date | date: 'dd/MM/yy'}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"stock-pan\">\n  <div class=\"row\">\n    <div class=\"col-md-10 \">\n      <h2> Today - Yesterday EOD.</h2>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-12\">\n      <div class=\"row seperator\">\n      </div>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-2\">\n      <label for=\"start\">Start date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n        (change)=\"onDateChange($event.target.value,true)\" />\n    </div>\n    <div class=\"col-md-2\">\n      <label for=\"start\">End date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n        (change)=\"onDateChange($event.target.value,false)\">\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n            style=\"margin-left:10px; margin-right:10px;\">\n            <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n              <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n              <span class=\"slider round\"></span>\n            </label> -->\n          </div>\n        </div>\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n            <div class=\"col-md-10\">\n            </div>\n          </div>\n          <table id=\"equityTable\">\n            <tr>\n              <th>Date</th>\n              <th>OI</th>\n              <th>ChangeIn OI</th>\n              <th>IV</th>\n              <th>LTP</th>\n              <th>Net Change</th>\n              <th>Volume</th>\n              <th>Strike Price</th>\n            </tr>\n            <tr *ngFor=\"let equity of equities;let i = index\">\n              <td>{{equity.date| date: 'dd/MM/yyyy'}}</td>\n              <td><label class=\"strikethrough\">{{equity.oi}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.oi}}</label>\n              </td>\n              <td><label class=\"strikethrough\">{{equity.chnginOI}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.chnginOI}}</label>\n              </td>\n              <td><label class=\"strikethrough\">{{equity.iv}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.iv}}</label></td>\n              <td><label class=\"strikethrough\">{{equity.ltp}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.ltp| number : '.0-4'}}</label></td>\n              <td>{{equity.netChng| number : '.4-4'}}</td>\n              <td>{{equity.volume}}</td>\n              <td>{{equity.strikePrice}}</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n    </div>\n</div>"
 
 /***/ }),
 
-/***/ "./src/app/premium-decay/premium-decay.component.ts":
-/*!**********************************************************!*\
-  !*** ./src/app/premium-decay/premium-decay.component.ts ***!
-  \**********************************************************/
-/*! exports provided: PremiumDecayComponent */
+/***/ "./src/app/premiumdk/premiumdk.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/premiumdk/premiumdk.component.ts ***!
+  \**************************************************/
+/*! exports provided: PremiumdkComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PremiumDecayComponent", function() { return PremiumDecayComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PremiumdkComponent", function() { return PremiumdkComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _service_stock_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/stock.service */ "./src/app/service/stock.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -933,58 +780,59 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-var PremiumDecayComponent = /** @class */ (function () {
-    function PremiumDecayComponent(stockservice) {
-        this.stockservice = stockservice;
-        this.filtersRequest = [];
-        this.callPremiumDecay = [];
-        this.putPremiumDecay = [];
+var PremiumdkComponent = /** @class */ (function () {
+    function PremiumdkComponent(stockService) {
+        this.stockService = stockService;
+        this.checkBoxFilter = [];
+        this.equities = [];
         this.search = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
+        this.filtersRequest = [];
     }
-    PremiumDecayComponent.prototype.ngOnInit = function () {
+    PremiumdkComponent.prototype.ngOnInit = function () {
         this.getCheckfilter();
     };
-    PremiumDecayComponent.prototype.getCheckfilter = function () {
+    PremiumdkComponent.prototype.getCheckfilter = function () {
         var _this = this;
-        this.stockservice.getFilters("equityFilter").subscribe(function (data) {
+        this.stockService.getFilters("equityFilter").subscribe(function (data) {
             _this.checkBoxFilter = data;
         });
     };
-    PremiumDecayComponent.prototype.getPremiumDecayData = function (value) {
-        this.search.type = value;
-        this.getNiftyPremiumDecay();
+    PremiumdkComponent.prototype.getYesterdayMinusToday = function () {
+        var _this = this;
+        this.search.filter = this.filtersRequest;
+        this.stockService.getYesterdayMinusTodayByFilter(this.search)
+            .subscribe(function (data) {
+            _this.equities = data;
+        });
     };
-    PremiumDecayComponent.prototype.onDateChange = function (value, isStartDate) {
+    PremiumdkComponent.prototype.checkValue = function (event, obj, type) {
+        this.search.type = type;
+        if (event) {
+            this.filtersRequest.push(obj);
+        }
+        else {
+            this.filtersRequest = this.filtersRequest.filter(function (item) { return item !== obj; });
+        }
+        this.getYesterdayMinusToday();
+    };
+    PremiumdkComponent.prototype.onDateChange = function (value, isStartDate) {
         if (isStartDate) {
             this.search.startDate = value;
         }
         else
             this.search.endDate = value;
-        //this.getEquities();
+        // this.getEquities();
+        this.getYesterdayMinusToday();
     };
-    PremiumDecayComponent.prototype.getNiftyPremiumDecay = function () {
-        var _this = this;
-        this.search.filter = this.filtersRequest;
-        this.stockservice.getPremiumDecayByFilter(this.search)
-            .subscribe(function (data) {
-            if (_this.search.type == 'CALL') {
-                _this.callPremiumDecay = data;
-            }
-            else
-                _this.putPremiumDecay = data;
-        });
-        console.log("Loading Call data" + this.callPremiumDecay);
-        console.log("Loading Put data " + this.putPremiumDecay);
-    };
-    PremiumDecayComponent = __decorate([
+    PremiumdkComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-premium-decay',
-            template: __webpack_require__(/*! ./premium-decay.component.html */ "./src/app/premium-decay/premium-decay.component.html"),
-            styles: [__webpack_require__(/*! ./premium-decay.component.css */ "./src/app/premium-decay/premium-decay.component.css")]
+            selector: 'app-premiumdk',
+            template: __webpack_require__(/*! ./premiumdk.component.html */ "./src/app/premiumdk/premiumdk.component.html"),
+            styles: [__webpack_require__(/*! ./premiumdk.component.css */ "./src/app/premiumdk/premiumdk.component.css")]
         }),
         __metadata("design:paramtypes", [_service_stock_service__WEBPACK_IMPORTED_MODULE_1__["StockService"]])
-    ], PremiumDecayComponent);
-    return PremiumDecayComponent;
+    ], PremiumdkComponent);
+    return PremiumdkComponent;
 }());
 
 
@@ -1128,16 +976,6 @@ var StockService = /** @class */ (function () {
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
         return this.http.post(this.baseUrl + this.equityEndPoint + 'search/stocksOptions', search);
     };
-    StockService.prototype.getIntraDay = function (startTime, endTime, search) {
-        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
-        params = params.append("startTime", startTime);
-        params = params.append("endTime", endTime);
-        return this.http.post(this.baseUrl + this.equityEndPoint + 'intraday', search, { params: params });
-    };
-    StockService.prototype.getPremiumDecayByFilter = function (search) {
-        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
-        return this.http.post(this.baseUrl + this.equityEndPoint + 'search/premium-decay', search);
-    };
     StockService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
@@ -1167,7 +1005,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"stock-pan\">\n    <div class=\"row\">\n      <div class=\"col-md-10 \">\n        <h2> Stock Option Chain.</h2>\n      </div>\n    </div>\n    <div class=\"row seperator\">\n      <div class=\"col-md-12\">\n        <div class=\"row seperator\">\n        </div>\n      </div>\n    </div>\n    <div class=\"row seperator\">\n      <div class=\"col-md-3\">\n        <label for=\"days\">Symbol:</label>\n        <select class=\"form-control\" (change)=\"symbolDropDown($event.target.value)\">\n           <option *ngFor=\"let symbol of symbols\" value={{symbol.symbol}}>\n            {{symbol.companyName}}\n          </option>\n        </select>\n      </div>\n      <div class=\"col-md-2\">\n        <label for=\"start\">Start date:</label>\n        <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n          (change)=\"onDateChange($event.target.value,true)\" />\n      </div>\n      <div class=\"col-md-2\">\n        <label for=\"start\">End date:</label>\n        <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n          (change)=\"onDateChange($event.target.value,false)\">\n      </div>\n    </div>\n    <div class=\"row seperator\"></div>\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n              style=\"margin-left:10px; margin-right:10px;\">\n              <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            </div>\n          </div>\n          <div class=\"col-md-12\">\n            <div class=\"row\">\n              <div class=\"col-md-10\">\n                <h4>Call</h4>\n              </div>\n              <div class=\"col-md-1\">\n                <button class=\"btn btn-info\" (click)=\"getData('CALL')\"> Get Call</button>\n              </div>\n            </div>\n            <div class=\"row seperator\"></div>\n            <table id=\"customers\">\n              <tr>\n                <th >Date</th>\n                <th >Symbol</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('oi',!sortDir)\">OI</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('chnginOI',!sortDir)\">COI</th>\n                <th>IV</th>\n                <th>LTP</th>\n                <th>Net-C</th>\n                <th>Vol</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('strikePrice',!sortDir)\">SP</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('postionsVol',!sortDir)\">CHI/VOL</th>\n              </tr>\n              <tr *ngIf=\"callEquities == ''\">No record found for above search....!</tr>\n              <tr *ngFor=\"let equity of callEquities;let i = index\">\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date| date: 'dd/MM/yy'}}</td>\n                <td  *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.symbol}}</td>\n                <td  *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n                <!-- <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI / equity.volume | number:'1.1-1'}}</td> -->\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n              </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-6\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n              style=\"margin-left:10px; margin-right:10px;\">\n              <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'PUT')\">{{chk.name}}</label>\n            </div>\n          </div>\n          <div class=\"col-md-12\">\n            <div class=\"row\">\n              <div class=\"col-md-10\">\n                <h4>PUT</h4>\n              </div>\n              <div class=\"col-md-1\">\n                <button class=\"btn btn-info\" (click)=\"getData('PUT')\"> Get Put</button>\n              </div>\n            </div>\n            <div class=\"row seperator\"></div>\n            <table id=\"customers\">\n              <tr>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('postionsVol',!sortDir)\">CHI/VOL</th>\n                <th>Date</th>\n                <th >Symbol</th>\n                <th  class=\"sort-arrow\" (click)=\"putSortBy('oi',!sortDir)\">OI</th>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('chnginOI',!sortDir)\">C-OI</th>\n                <th>IV</th>\n                <th>LTP</th>\n                <th>Net-C</th>\n                <th>Vol</th>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('strikePrice',!sortDir)\">SP</th>\n              </tr>\n              <tr *ngIf=\"putEquities == ''\">No record found for above search....!</tr>\n              <tr *ngFor=\"let equity of putEquities;let i = index\">\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date | date: 'dd/MM/yy'}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.symbol}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n              </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>"
+module.exports = "<div class=\"stock-pan\">\n    <div class=\"row\">\n      <div class=\"col-md-10 \">\n        <h2> Stock Option Chain.</h2>\n      </div>\n    </div>\n    <div class=\"row seperator\">\n      <div class=\"col-md-12\">\n        <div class=\"row seperator\">\n        </div>\n      </div>\n    </div>\n    <div class=\"row seperator\">\n      <div class=\"col-md-3\">\n        <label for=\"days\">Symbol:</label>\n        <select class=\"form-control\" (change)=\"symbolDropDown($event.target.value)\">\n           <option *ngFor=\"let symbol of symbols\" value={{symbol.symbol}}>\n            {{symbol.companyName}}\n          </option>\n        </select>\n      </div>\n      <div class=\"col-md-2\">\n        <label for=\"start\">Start date:</label>\n        <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n          (change)=\"onDateChange($event.target.value,true)\" />\n      </div>\n      <div class=\"col-md-2\">\n        <label for=\"start\">End date:</label>\n        <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n          (change)=\"onDateChange($event.target.value,false)\">\n      </div>\n    </div>\n    <div class=\"row seperator\"></div>\n    <div class=\"row\">\n      <div class=\"col-md-6\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n              style=\"margin-left:10px; margin-right:10px;\">\n              <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            </div>\n          </div>\n          <div class=\"col-md-12\">\n            <div class=\"row\">\n              <div class=\"col-md-10\">\n                <h4>Call</h4>\n              </div>\n              <div class=\"col-md-1\">\n                <button class=\"btn btn-info\" (click)=\"getData('CALL')\"> Get Call</button>\n              </div>\n            </div>\n            <div class=\"row seperator\"></div>\n            <table id=\"customers\">\n              <tr>\n                <th >Date</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('oi',!sortDir)\">OI</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('chnginOI',!sortDir)\">COI</th>\n                <th>IV</th>\n                <th>LTP</th>\n                <th>Net-C</th>\n                <th>Vol</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('strikePrice',!sortDir)\">SP</th>\n                <th class=\"sort-arrow\" (click)=\"callSortBy('postionsVol',!sortDir)\">CHI/VOL</th>\n              </tr>\n              <tr *ngFor=\"let equity of callEquities;let i = index\">\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date| date: 'dd/MM/yy'}}</td>\n                <td  *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n                <!-- <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI / equity.volume | number:'1.1-1'}}</td> -->\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n              </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-md-6\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n              style=\"margin-left:10px; margin-right:10px;\">\n              <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'PUT')\">{{chk.name}}</label>\n            </div>\n          </div>\n          <div class=\"col-md-12\">\n            <div class=\"row\">\n              <div class=\"col-md-10\">\n                <h4>PUT</h4>\n              </div>\n              <div class=\"col-md-1\">\n                <button class=\"btn btn-info\" (click)=\"getData('PUT')\"> Get Put</button>\n              </div>\n            </div>\n            <div class=\"row seperator\"></div>\n            <table id=\"customers\">\n              <tr>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('postionsVol',!sortDir)\">CHI/VOL</th>\n                <th>Date</th>\n                <th  class=\"sort-arrow\" (click)=\"putSortBy('oi',!sortDir)\">OI</th>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('chnginOI',!sortDir)\">C-OI</th>\n                <th>IV</th>\n                <th>LTP</th>\n                <th>Net-C</th>\n                <th>Vol</th>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('strikePrice',!sortDir)\">SP</th>\n              </tr>\n              <tr *ngFor=\"let equity of putEquities;let i = index\">\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.postionsVol | number:'1.1-1'}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.date | date: 'dd/MM/yy'}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.oi}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.chnginOI}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.iv}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.ltp}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.netChng}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.volume}}</td>\n                <td *ngIf=\"equity.oi >0  && equity.iv > 0\">{{equity.strikePrice}}</td>\n              </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>"
 
 /***/ }),
 
@@ -1296,162 +1134,6 @@ var StockOptionChainComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_service_stock_service__WEBPACK_IMPORTED_MODULE_1__["StockService"]])
     ], StockOptionChainComponent);
     return StockOptionChainComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/yesterDay-today/yesterDay-today.css":
-/*!*****************************************************!*\
-  !*** ./src/app/yesterDay-today/yesterDay-today.css ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".strikethrough {\r\n    text-decoration: line-through;\r\n}"
-
-/***/ }),
-
-/***/ "./src/app/yesterDay-today/yesterDay-today.html":
-/*!******************************************************!*\
-  !*** ./src/app/yesterDay-today/yesterDay-today.html ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"stock-pan\">\n  <div class=\"row\">\n    <div class=\"col-md-10 \">\n      <h2> Today - Yesterday EOD.</h2>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-12\">\n      <div class=\"row seperator\">\n      </div>\n    </div>\n  </div>\n  <div class=\"row seperator\">\n    <div class=\"col-md-2\">\n      <label for=\"start\">Start date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"start\" name=\"startDate\"\n        (change)=\"onDateChange($event.target.value,true)\" />\n    </div>\n    <div class=\"col-md-2\">\n      <label for=\"start\">End date:</label>\n      <input class=\"form-control\" type=\"date\" id=\"end\" name=\"endDate\"\n        (change)=\"onDateChange($event.target.value,false)\">\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n            style=\"margin-left:10px; margin-right:10px;\">\n            <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'CALL')\">{{chk.name}}</label>\n            <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n              <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n              <span class=\"slider round\"></span>\n            </label> -->\n          </div>\n        </div>\n        <div class=\"col-md-12\">\n          <div class=\"row\">\n              <div class=\"col-md-10\">\n                  <h4>Call</h4>\n                </div>\n                <div class=\"col-md-1\">\n                  <button class=\"btn btn-info\" (click)=\"getData('CALL')\"> Get Call</button>\n                </div>\n          </div>\n          <div class=\"row seperator\"></div>\n          <table id=\"equityTable\">\n            <tr>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('postionsVol',!sortDir)\">Chg-Vol</th>\n              <th>Date</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('oi',!sortDir)\">OI</th>\n              <th class=\"sort-arrow\" (click)=\"callSortBy('chnginOI',!sortDir)\">COI</th>\n              <th>IV</th>\n              <th>LTP</th>\n             <!--  <th>Net-C</th> -->\n              <th>Vol-Diff</th> \n              <th class=\"sort-arrow\" (click)=\"callSortBy('strikePrice',!sortDir)\">SP</th>\n            </tr>\n            <tr *ngIf=\"callYesterdayToday == ''\">No record found for above search....!</tr>\n            <tr *ngFor=\"let equity of callYesterdayToday;let i = index\">\n              <td *ngIf=\"equity.postionsVol!=='NaN'\">{{equity.postionsVol | number:'1.1-1'}}</td>\n              <td>{{equity.date| date: 'dd/MM'}}</td>\n              <td><label class=\"strikethrough\">{{equity.oi}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.oi}}</label>\n              </td>\n              <td><label class=\"strikethrough\">{{equity.chnginOI}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.chnginDif}}</label>\n              </td>\n              <td><label class=\"strikethrough\">{{equity.iv | number:'1.1-1'}}</label>\n                <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.iv | number:'1.1-1'}}</label> \n              </td>\n              <td><label class=\"strikethrough\">{{equity.ltp | number:'1.1-1'}}</label>\n                <!-- <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.ltp | number:'1.1-1'}}</label>  -->\n              </td>\n              <!-- <td>{{equity.netChng | number:'1.1-1'}}</td> -->\n              <td>{{equity.volume}}</td>\n              <td>{{equity.strikePrice}}</td> \n            </tr>\n          </table>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col-md-6\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div *ngFor=\"let chk of checkBoxFilter\" class=\"checkbox check-container\"\n              style=\"margin-left:10px; margin-right:10px;\">\n              <label><input type=\"checkbox\" (change)=\"checkValue($event.target.checked,chk,'PUT')\">{{chk.name}}</label>\n              <!-- <label class=\"switch\" style=\"margin-left:10px;margin-top: 9px;\">\n                <input type=\"checkbox\" checked (change)=\"directionValue($event.target.checked,chk)\">\n                <span class=\"slider round\"></span>\n              </label> -->\n            </div>\n          </div>\n          <div class=\"col-md-12\">\n            <div class=\"row\">\n              <div class=\"col-md-10\">\n                <h4>PUT</h4>\n              </div>\n              <div class=\"col-md-1\">\n                <button class=\"btn btn-info\" (click)=\"getData('PUT')\"> Get Put</button>\n              </div>\n            </div>\n            <div class=\"row seperator\"></div>\n            <table id=\"equityTable\">\n              <tr>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('postionsVol',!sortDir)\">Chg-Vol</th> \n                <th>Date</th>\n                <th  class=\"sort-arrow\" (click)=\"putSortBy('oi',!sortDir)\">OI</th>\n                <th class=\"sort-arrow\" (click)=\"putSortBy('chnginOI',!sortDir)\">C-OI</th>\n                <th>IV</th>\n                <th>LTP</th>\n               <!--  <th>Net-C</th> -->\n                <th>Vol-Diff</th> \n                <th class=\"sort-arrow\" (click)=\"putSortBy('strikePrice',!sortDir)\">SP</th>\n              </tr>\n              <tr *ngIf=\"putYesterdayToday == ''\">No record found for above search....!</tr>\n              <tr *ngFor=\"let equity of putYesterdayToday;let i = index\">\n                  <td *ngIf=\"equity.postionsVol!=='NaN'\">{{equity.postionsVol | number:'1.1-1'}}</td>\n                  <td>{{equity.date| date: 'dd/MM'}}</td>\n                  <td><label class=\"strikethrough\">{{equity.oi}}</label>\n                    <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.oi}}</label>\n                  </td>\n                  <td><label class=\"strikethrough\">{{equity.chnginOI}}</label>\n                    <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.chnginDif}}</label>\n                  </td>\n                  <td><label class=\"strikethrough\">{{equity.iv | number:'1.1-1'}}</label>\n                    <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.iv | number:'1.1-1'}}</label>\n                  </td>\n                  <td><label class=\"strikethrough\">{{equity.ltp | number:'1.1-1'}}</label>\n                     <!-- <label *ngIf=\"equity.prevEquity!==null\">{{equity.prevEquity.ltp | number:'1.1-1'}}</label> -->\n                  </td>\n                 <!--  <td>{{equity.netChng | number:'1.1-1'}}</td> -->\n                  <td>{{equity.volume}}</td> \n                  <td>{{equity.strikePrice}}</td>\n                </tr>\n            </table>\n          </div>\n        </div>\n      </div>\n    </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/yesterDay-today/yesterDay-today.ts":
-/*!****************************************************!*\
-  !*** ./src/app/yesterDay-today/yesterDay-today.ts ***!
-  \****************************************************/
-/*! exports provided: YesterDayTodayComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "YesterDayTodayComponent", function() { return YesterDayTodayComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _service_stock_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/stock.service */ "./src/app/service/stock.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var YesterDayTodayComponent = /** @class */ (function () {
-    function YesterDayTodayComponent(stockService) {
-        this.stockService = stockService;
-        this.checkBoxFilter = [];
-        this.equities = [];
-        this.search = { strikePrice: null, startDate: null, endDate: null, type: 'CALL' };
-        this.filtersRequest = [];
-        this.callYesterdayToday = [];
-        this.putYesterdayToday = [];
-    }
-    YesterDayTodayComponent.prototype.ngOnInit = function () {
-        this.getCheckfilter();
-        // this.getYesterdayMinusToday();
-    };
-    YesterDayTodayComponent.prototype.getCheckfilter = function () {
-        var _this = this;
-        this.stockService.getFilters("equityFilter").subscribe(function (data) {
-            _this.checkBoxFilter = data;
-        });
-    };
-    YesterDayTodayComponent.prototype.getYesterdayMinusToday = function () {
-        var _this = this;
-        this.search.filter = this.filtersRequest;
-        this.stockService.getYesterdayMinusTodayByFilter(this.search)
-            .subscribe(function (data) {
-            if (_this.search.type == 'CALL') {
-                _this.callYesterdayToday = data;
-            }
-            else
-                _this.putYesterdayToday = data;
-        });
-    };
-    YesterDayTodayComponent.prototype.getYesterdayMinusTodayCall = function () {
-        var _this = this;
-        this.search.filter = this.filtersRequest;
-        this.stockService.getYesterdayMinusTodayByFilter(this.search)
-            .subscribe(function (data) {
-            //this.equities = data;
-            if (_this.search.type == 'CALL') {
-                _this.callYesterdayToday = data;
-            }
-            else
-                _this.putYesterdayToday = data;
-        });
-        console.log("Calldata--> " + this.callYesterdayToday);
-        console.log("putdata--> " + this.putYesterdayToday);
-    };
-    YesterDayTodayComponent.prototype.checkValue = function (event, obj, type) {
-        this.search.type = type;
-        if (event) {
-            this.filtersRequest.push(obj);
-        }
-        else {
-            this.filtersRequest = this.filtersRequest.filter(function (item) { return item !== obj; });
-        }
-        this.getYesterdayMinusToday();
-    };
-    YesterDayTodayComponent.prototype.onDateChange = function (value, isStartDate) {
-        if (isStartDate) {
-            this.search.startDate = value;
-        }
-        else
-            this.search.endDate = value;
-        // this.getEquities();
-        //  this.getYesterdayMinusToday();
-    };
-    YesterDayTodayComponent.prototype.getData = function (value) {
-        this.search.type = value;
-        this.getYesterdayMinusTodayCall();
-    };
-    YesterDayTodayComponent.prototype.callSortBy = function (sortBy, sortDir) {
-        this.sortDir = sortDir;
-        if (this.sortDir) {
-            this.callYesterdayToday.sort(function (a, b) {
-                return a[sortBy] - b[sortBy];
-            });
-        }
-        else {
-            this.callYesterdayToday.sort(function (a, b) {
-                return b[sortBy] - a[sortBy];
-            });
-        }
-    };
-    YesterDayTodayComponent.prototype.putSortBy = function (sortBy, sortDir) {
-        this.sortDir = sortDir;
-        if (this.sortDir) {
-            this.putYesterdayToday.sort(function (a, b) {
-                return a[sortBy] - b[sortBy];
-            });
-        }
-        else {
-            this.putYesterdayToday.sort(function (a, b) {
-                return b[sortBy] - a[sortBy];
-            });
-        }
-    };
-    YesterDayTodayComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-yesterDay-today',
-            template: __webpack_require__(/*! ./yesterDay-today.html */ "./src/app/yesterDay-today/yesterDay-today.html"),
-            styles: [__webpack_require__(/*! ./yesterDay-today.css */ "./src/app/yesterDay-today/yesterDay-today.css")]
-        }),
-        __metadata("design:paramtypes", [_service_stock_service__WEBPACK_IMPORTED_MODULE_1__["StockService"]])
-    ], YesterDayTodayComponent);
-    return YesterDayTodayComponent;
 }());
 
 

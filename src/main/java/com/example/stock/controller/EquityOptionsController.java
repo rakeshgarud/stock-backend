@@ -1,6 +1,7 @@
 package com.example.stock.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -126,12 +127,12 @@ public class EquityOptionsController {
 	}
 	
 	@PostMapping(value="/search/premium-decay",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<NiftyPremiumDK> getPremiumDecay(@RequestBody SearchFilter search) {
+	public Object getPremiumDecay(@RequestBody SearchFilter search) {
 		try {
-			return niftyPremiumDKService.serachIntraDayNiftyEquity(search);
+			return niftyPremiumDKService.getPremiumDK(search);
 		} catch (Exception e) {
 			logger.error("Error while processing request- /search/PremiumDecay");
 		}
-		return Arrays.asList();
+		return new HashMap<String, Object>();
 	}
 }

@@ -3,6 +3,7 @@ package com.example.stock.service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,11 +16,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.stock.bean.EquityDerivativePredicate;
 import com.example.stock.bean.IntraDayEquity;
+import com.example.stock.bean.NiftyPremiumDK;
 import com.example.stock.constants.Constant;
 import com.example.stock.dto.Filter;
 import com.example.stock.dto.SearchFilter;
 import com.example.stock.enums.Column;
 import com.example.stock.repo.IntraDayNiftyEquityRepository;
+import com.example.stock.util.CommonUtil;
 import com.example.stock.util.DateUtil;
 import com.example.stock.util.EquityDerivativesUtil;
 import com.example.stock.util.FileUtil;
@@ -72,7 +75,7 @@ public class IntraDayEquityService {
 				finalEquity.addAll(getEquitiesByDates(date, date, search));
 			}
 		} catch (Exception e) {
-			logger.error("EquityService : Error",e);
+			logger.error("IntraDayEquityService : Error",e);
 		}
 		
 		return finalEquity;
@@ -133,11 +136,33 @@ public class IntraDayEquityService {
 			}*/
 			return searchedEquity;
 		} catch (Exception e) {
-			logger.error("EquityServiceImpl: Error",e);
+			logger.error("IntraDayEquityService: Error",e);
 		}
 		return null;
 	}
 
+	public HashMap<String, Object> getPremiumDK(SearchFilter search) {
+		Date startDate = DateUtil.getDateWithoutTime(search.getStartDate());
+		Date endDate = search.getEndDate();
+		HashMap<String, Object> response = new HashMap<String, Object>();
+		try {
+			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate);
+			List<IntraDayEquity> searchedEquity = new ArrayList<IntraDayEquity>();
+			for (Date date : dates) {
+				searchedEquity.addAll(getEquitiesByDates(date, date, search));
+			}
+			List<Double> IVList = searchedEquity.stream().map(x -> x.getIv()).collect(Collectors.toList());
+			List<Double> stikePriceList = searchedEquity.stream().map(x -> x.getStrikePrice())
+					.collect(Collectors.toList());
+			response.put("Data", searchedEquity);
+			response.put("corelation", CommonUtil.getCorrelationCoefficient(IVList,stikePriceList));
+			return response;
+		} catch (Exception e) {
+			logger.error("IntraDayEquityService: Error", e);
+		}
+		return null;
+	}
+	
 	private List<IntraDayEquity> getEquitiesByDates(Date startDate, Date endDate, SearchFilter search) throws Exception{
 		List<Filter> filters = search.getFilter();
 
@@ -199,5 +224,14 @@ public class IntraDayEquityService {
 		});
 
 		return list;
+	}
+	
+	private double getNearestPrice(double currentPrice) {
+		Map<String, Object> config = configService.getConfig();
+		List<Integer> triggers = (List<Integer>) config.get(Constant.TRIGGER_RANGE);
+
+		int nearestValue = triggers.stream().min(Comparator.comparingInt(i -> Math.abs(i - (int) currentPrice)))
+				.orElse(0);
+		return nearestValue;
 	}
 }
