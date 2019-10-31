@@ -67,7 +67,7 @@ public class CSVReader {
 		try {
 			parser = new CSVParser(new FileReader(fileName), format);
 			for (CSVRecord record : parser) {
-				if(record.get("Client Type").toString().equals("FII")) {
+				//if(record.get("Client Type").toString().equals("FII")) {
 					ExchangeActivity activity = new ExchangeActivity();
 					activity.setClientType(record.get("Client Type"));
 					activity.setDate(DateUtil.getCurretDate());
@@ -86,7 +86,7 @@ public class CSVReader {
 					activity.setTotalLongContracts(Double.parseDouble(record.get("Total Long Contracts	")));
 					activity.setTotalShortContracts(Double.parseDouble(record.get("Total Short Contracts")));
 					activities.add(activity);
-				}
+				//}
 			}
 			// close the parser
 			parser.close();

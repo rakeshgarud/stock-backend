@@ -17,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.stock.bean.IntraDayEquity;
+import com.example.stock.bean.IntraDayNifty;
+import com.example.stock.bean.IntraDayStockOption;
 import com.example.stock.bean.MonthlyEquity;
 import com.example.stock.bean.NiftyEquityDerivative;
-import com.example.stock.bean.NiftyPremiumDK;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.dto.SearchFilter;
 import com.example.stock.service.ConfigService;
+import com.example.stock.service.IntraDayNiftyService;
+import com.example.stock.service.IntraDayStockOptionsService;
+import com.example.stock.service.MonthlyEquityService;
 import com.example.stock.service.NiftyEquityService;
 import com.example.stock.service.NiftyPremiumDKService;
-import com.example.stock.service.IntraDayEquityService;
-import com.example.stock.service.MonthlyEquityService;
+import com.example.stock.service.StockOptionsEquityService;
 import com.example.stock.util.DateUtil;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders = { "Content-Type", "Accept",
@@ -49,10 +51,16 @@ public class EquityOptionsController {
 	ConfigService configService; 
 	
 	@Autowired
-	private IntraDayEquityService intraDayEquityService;
+	private IntraDayNiftyService intraDayEquityService;
 	
 	@Autowired
 	private MonthlyEquityService monthlyEquityService;
+	
+	@Autowired
+	private StockOptionsEquityService stockOptionsEquityService;
+	
+	@Autowired
+	private IntraDayStockOptionsService intraDayStockOptionsEquityService;
 	
 	@PostMapping(value="/search/nifty",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<NiftyEquityDerivative> getEquity(@RequestBody SearchFilter search) {
@@ -65,7 +73,7 @@ public class EquityOptionsController {
 	}
 
 	@PostMapping(value="/nifty/yesterday-today",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<NiftyEquityDerivative> getPremiumDk(@RequestBody SearchFilter search) {
+	public List<NiftyEquityDerivative> getYesterdayMinusTodayK(@RequestBody SearchFilter search) {
 		try {
 			return equityService.getYesterdayMinusTodayK(search);
 		} catch (Exception e) {
@@ -77,7 +85,7 @@ public class EquityOptionsController {
 	@PostMapping(value="/search/stocksOptions",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<StockOptionsEquity> getStockOptionsEquity(@RequestBody SearchFilter search) {
 		try {
-			return equityService.serachStocksOptionEquity(search);
+			return stockOptionsEquityService.serachStocksOptionEquity(search);
 		} catch (Exception e) {
 			logger.error("Error while processing request- /search/stocks");
 		}
@@ -91,11 +99,11 @@ public class EquityOptionsController {
 	
 	@GetMapping("/load-stocksOptions")
 	public void loadStockOptionsData() throws Exception{
-		equityService.saveStockOptionsEquity();
+		stockOptionsEquityService.saveStockOptionsEquity();
 	}
 	
-	@PostMapping(value="/intraday",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<IntraDayEquity> getIntraDayYesterDayMinusToday(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
+	@PostMapping(value="/nifty/intraday",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<IntraDayNifty> getIntraDayYesterDayMinusToday(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
 		try {
 			int hr = Integer.parseInt(startTime.split(":")[0]);
 			int min = Integer.parseInt(startTime.split(":")[1]);
@@ -134,5 +142,31 @@ public class EquityOptionsController {
 			logger.error("Error while processing request- /search/PremiumDecay");
 		}
 		return new HashMap<String, Object>();
+	}
+	
+	@PostMapping(value="/stockOptions/yesterday-today",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<StockOptionsEquity> getStocksOptionsYesterdayMinusTodayK(@RequestBody SearchFilter search) {
+		try {
+			return stockOptionsEquityService.getYesterdayMinusTodayK(search);
+		} catch (Exception e) {
+			logger.error("Error while processing request- /stockOptions/yesterday-today");
+		}
+		return Arrays.asList();
+	}
+	
+	@PostMapping(value="/stockOptions/intraday",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<IntraDayStockOption> getStocksOptionsIntraDay(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
+		try {
+			int hr = Integer.parseInt(startTime.split(":")[0]);
+			int min = Integer.parseInt(startTime.split(":")[1]);
+			search.setStartDate(DateUtil.setDateWithTime(hr,min));
+			hr = Integer.parseInt(endTime.split(":")[0]);
+			min = Integer.parseInt(endTime.split(":")[1]);
+			search.setEndDate(DateUtil.setDateWithTime(hr,min));
+			return intraDayStockOptionsEquityService.getIntraDayYesterdayMinusToday(search);
+		} catch (Exception e) {
+			logger.error("Error while processing request- /stockOptions/intraday");
+		}
+		return Arrays.asList();
 	}
 }

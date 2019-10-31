@@ -11,15 +11,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name="STOCKS_OPTIONS_EOD")
-public class StockOptionsEquity extends EquityDerivative{
+@Table(name="STOCK_OPTIONS_INTRADAY")
+public class IntraDayStockOption extends EquityDerivative{
 
 	@Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 	
 	@Transient
-	private StockOptionsEquity prevEquity;
+	private IntraDayStockOption prevEquity;
 	
 	
 	public Long getId() {
@@ -28,10 +28,10 @@ public class StockOptionsEquity extends EquityDerivative{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public StockOptionsEquity getPrevEquity() {
+	public IntraDayStockOption getPrevEquity() {
 		return prevEquity;
 	}
-	public void setPrevEquity(StockOptionsEquity prevEquity) {
+	public void setPrevEquity(IntraDayStockOption prevEquity) {
 		this.prevEquity = prevEquity;
 	}
 	@Override

@@ -17,10 +17,11 @@ import org.springframework.stereotype.Component;
 
 import com.example.stock.constants.Constant;
 import com.example.stock.service.ConfigService;
+import com.example.stock.service.IntraDayNiftyService;
+import com.example.stock.service.IntraDayStockOptionsService;
 import com.example.stock.service.NiftyEquityService;
-import com.example.stock.service.IntraDayEquityService;
 import com.example.stock.service.NiftyPremiumDKService;
-import com.example.stock.service.StockOptionsEquityLookupService;
+import com.example.stock.service.StockOptionsEquityService;
 import com.example.stock.service.StockService;
 import com.example.stock.util.HTTPConnection;
 
@@ -34,7 +35,7 @@ public class Scheduler {
 	NiftyEquityService equityService;
 	
 	@Autowired
-	private StockOptionsEquityLookupService equityLookupService;
+	private StockOptionsEquityService equityLookupService;
 
 	@Autowired
 	private NiftyPremiumDKService niftyPremiumDKService;
@@ -43,7 +44,13 @@ public class Scheduler {
 	ConfigService configService;
 	
 	@Autowired
-	private IntraDayEquityService intraDayEquityService;
+	private IntraDayNiftyService intraDayEquityService;
+	
+	@Autowired
+	private StockOptionsEquityService stockOptionsEquityService;
+	
+	@Autowired
+	private IntraDayStockOptionsService intraDayStockOptionsEquityService;
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -102,7 +109,21 @@ public class Scheduler {
 	@Scheduled(cron = "0 0 17 1/1 * ?") //Runs job at 5 PM daily
 	public void cronGetEquityDataForAllSymbol() throws Exception {
 		logger.info("Scheduler Job : Started cronGetEquityDataForAllSymbol "+dateTimeFormatter.format(LocalDateTime.now()));
-		equityLookupService.loadStocksOptionsData();
+		equityLookupService.saveStockOptionsEquity();
 		logger.info("Scheduler Job : Finished cronGetEquityDataForAllSymbol "+dateTimeFormatter.format(LocalDateTime.now()));
+	}
+	
+	@Scheduled(cron = "0 */8 * ? * *") //Runs job after every 8 Min daily
+	public void cronIntraDayGetEquityDataForStockOption() throws Exception {
+		logger.info("Scheduler Job : Started cronIntraDayGetEquityDataForStockOption "+dateTimeFormatter.format(LocalDateTime.now()));
+		stockOptionsEquityService.saveStockOptionsEquity();
+		logger.info("Scheduler Job : Finished cronIntraDayGetEquityDataForStockOption "+dateTimeFormatter.format(LocalDateTime.now()));
+	}
+	
+	@Scheduled(cron = "0 0 17 1/1 * ?") //Runs job at 5 PM daily
+	public void cronGetEquityDataForStockOptionEOD() throws Exception {
+		logger.info("Scheduler Job : Started cronGetEquityDataForStockOptionEOD "+dateTimeFormatter.format(LocalDateTime.now()));
+		intraDayStockOptionsEquityService.saveIntraDayStockOptionEquityDerivatives();
+		logger.info("Scheduler Job : Finished cronGetEquityDataForStockOptionEOD "+dateTimeFormatter.format(LocalDateTime.now()));
 	}
 }

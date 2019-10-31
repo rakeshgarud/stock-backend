@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.stock.bean.ExchangeActivity;
-import com.example.stock.bean.IntraDayEquity;
+import com.example.stock.bean.IntraDayNifty;
 import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.Stock;
 import com.example.stock.bean.StockOptionsEquity;
@@ -36,7 +36,7 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	@Autowired
 	private ConfigService configService;
 	
-	private final static Logger logger = LoggerFactory.getLogger(StockOptionsEquityLookupService.class);
+	private final static Logger logger = LoggerFactory.getLogger(StockOptionsEquityService.class);
 
 	@Autowired
 	private NiftyEquityDerivativeRepository equityDerivativeRepository;
@@ -105,13 +105,13 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 	}
 	
 
-	private List<IntraDayEquity> loadNiftyIntradayFromFile(String sourceDir, String fileFormat) {
+	private List<IntraDayNifty> loadNiftyIntradayFromFile(String sourceDir, String fileFormat) {
 		String DIR = null;
 		double postionsVol =0.0;
 		if (sourceDir != null) {
 			DIR = sourceDir;
 		}
-		List<IntraDayEquity> equities = new ArrayList<IntraDayEquity>();
+		List<IntraDayNifty> equities = new ArrayList<IntraDayNifty>();
 		File[] files = FileUtil.getAllFiles(DIR, fileFormat);
 		if (files == null) {
 			return Arrays.asList();
@@ -121,7 +121,7 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 			mapper.setSerializationInclusion(Include.NON_NULL);
 			try {
 				//equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
-				equities = Arrays.asList(mapper.readValue(files[i], IntraDayEquity[].class));
+				equities = Arrays.asList(mapper.readValue(files[i], IntraDayNifty[].class));
 				
 				for (int j =0; j < equities.size(); j++) {
 					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();

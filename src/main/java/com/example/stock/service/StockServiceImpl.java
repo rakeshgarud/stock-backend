@@ -36,7 +36,7 @@ public class StockServiceImpl implements StockService {
 	@Autowired
 	private ConfigService configService;
 	
-	private final static Logger logger = LoggerFactory.getLogger(StockOptionsEquityLookupService.class);
+	private final static Logger logger = LoggerFactory.getLogger(StockOptionsEquityService.class);
 	
 	@Autowired
 	private ExchangeActivityRepository activityRepository;

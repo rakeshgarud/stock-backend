@@ -9,7 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.stock.bean.IntraDayEquity;
+import com.example.stock.bean.IntraDayNifty;
 import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.StockOptionsEquity;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -35,7 +35,7 @@ public class EquityServiceImpl implements EquityService {
 	@Autowired
 	private ConfigService configService;
 
-	private final static Logger logger = LoggerFactory.getLogger(StockOptionsEquityLookupService.class);
+	private final static Logger logger = LoggerFactory.getLogger(StockOptionsEquityService.class);
 
 	@Autowired
 	private NiftyEquityDerivativeRepository equityDerivativeRepository;
@@ -44,7 +44,7 @@ public class EquityServiceImpl implements EquityService {
 	private StockOptionsEquityRepository stockOptionsEquityRepository;
 	
 	@Autowired
-	private StockOptionsEquityLookupService equityLookupService ;
+	private StockOptionsEquityService equityLookupService ;
 
 	@Override
 	public void saveNiftyEquityDerivatives() {
@@ -202,7 +202,7 @@ public class EquityServiceImpl implements EquityService {
 	@Override
 	public void saveStockOptionsEquity() {
 		try {
-			equityLookupService.loadStocksOptionsData();
+			equityLookupService.saveStockOptionsEquity();
 		} catch (InterruptedException e) {
 		logger.error("Error while saving stocks option data");
 		}
