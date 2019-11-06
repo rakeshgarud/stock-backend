@@ -122,14 +122,14 @@ public class MonthlyEquityService {
 		if (search.getStrikePrice() > 0) {
 			List<MonthlyEquity> equities = monthlyNiftyEquityRepository
 					.getEquitiesByStrikePriceBetweenDatesAndByType(startDate, endDate, search.getStrikePrice(),
-							Column.valueOf(search.getType()).ordinal());
+							Column.valueOf(search.getType()).getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
 		List<MonthlyEquity> equities = monthlyNiftyEquityRepository.getAllEquitiesBetweenDatesAndByType(startDate,
-				endDate, Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+				endDate, Column.valueOf(search.getType()).getColumn(), search.getSymbol());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {

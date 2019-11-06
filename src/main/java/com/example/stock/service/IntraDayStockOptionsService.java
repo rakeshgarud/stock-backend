@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.stock.bean.EquityDerivativePredicate;
 import com.example.stock.bean.IntraDayStockOption;
+import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.constants.Constant;
 import com.example.stock.dto.Filter;
 import com.example.stock.dto.SearchFilter;
@@ -43,6 +44,9 @@ public class IntraDayStockOptionsService {
 	       		String url = Constant.EQUITY_CHART_URL.split("=")[0]+"="+symbol.get("symbol");
 	    		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(url);
 	    		List<IntraDayStockOption> equities = new ArrayList<IntraDayStockOption>();
+	    		List<IntraDayStockOption> call = new ArrayList<IntraDayStockOption>();
+	    		List<IntraDayStockOption> put = new ArrayList<IntraDayStockOption>();
+	    		
 	    		Date createdDate = DateUtil.getDateWithoutSec( new Date());
 	    		resultObj.forEach(s -> {
 	    			ObjectMapper mapper = new ObjectMapper();
@@ -53,10 +57,23 @@ public class IntraDayStockOptionsService {
 	    			double posVol = Double.valueOf(equity.getChnginOI()) / Double.valueOf(equity.getVolume());
 	    			equity.setPostionsVol(posVol);
 	    			equities.add(equity);
+	    			
+	    			if(equity.getType()==Column.CALL.getColumn())
+						call.add(equity);
+					if(equity.getType()==Column.PUT.getColumn())
+						put.add(equity);
 	    		});
 	    		//String sourceDir = (String) configService.getConfigByName(Constant.INTRADAY_NIFTY_SOURCE_DIR);
 	    		//FileUtil.saveAsJsonFile(equities, sourceDir);
-	    		intraDayRepository.saveAll(equities);
+	    		List<IntraDayStockOption> callDB = (List<IntraDayStockOption>) intraDayRepository.saveAll(call);
+	    		put.stream().forEach(putEq->{
+					Optional<IntraDayStockOption> eqty = callDB.stream()
+							.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+					if (eqty.isPresent()) {
+						putEq.setPutId(eqty.get().getId());
+					}
+				});
+	    		intraDayRepository.saveAll(put);
 	       	}
 	}
 
@@ -149,14 +166,14 @@ public class IntraDayStockOptionsService {
 		if (search.getStrikePrice() > 0) {
 			List<IntraDayStockOption> equities = intraDayRepository
 					.getEquitiesByStrikePriceBetweenDatesAndByType(startDate, endDate, search.getStrikePrice(),
-							Column.valueOf(search.getType()).ordinal());
+							Column.valueOf(search.getType()).getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
 		List<IntraDayStockOption> equities = intraDayRepository.getAllEquitiesBetweenDatesAndByType(startDate,
-				endDate, Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+				endDate, Column.valueOf(search.getType()).getColumn(), search.getSymbol());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {

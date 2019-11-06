@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.Stock;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.constants.Constant;
+import com.example.stock.enums.Column;
 import com.example.stock.repo.ExchangeActivityRepository;
 import com.example.stock.repo.IntraDayNiftyEquityRepository;
 import com.example.stock.repo.NiftyEquityDerivativeRepository;
@@ -90,12 +93,23 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 				//equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
 				equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
 				
-				for (int j =0; j < equities.size(); j++) {
+				/*for (int j =0; j < equities.size(); j++) {
 					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();
 					equities.get(j).setPostionsVol(postionsVol);
 					//System.out.println(equities.get(j).getPostionsVol());
-				}
-				equityDerivativeRepository.saveAll(equities);
+				}*/
+				List<NiftyEquityDerivative> call = equities.stream().filter(eq->eq.getType()==Column.CALL.getColumn()).collect(Collectors.toList());
+				List<NiftyEquityDerivative> callDB = (List<NiftyEquityDerivative>) equityDerivativeRepository.saveAll(call);
+				
+				List<NiftyEquityDerivative> put = equities.stream().filter(eq->eq.getType()==Column.PUT.getColumn()).collect(Collectors.toList());
+				put.stream().forEach(putEq->{
+					Optional<NiftyEquityDerivative> eqty = call.stream()
+							.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+					if (eqty.isPresent()) {
+						putEq.setPutId(eqty.get().getId());
+					}
+				});
+				equityDerivativeRepository.saveAll(put);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -123,12 +137,25 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 				//equities = Arrays.asList(mapper.readValue(files[i], NiftyEquityDerivative[].class));
 				equities = Arrays.asList(mapper.readValue(files[i], IntraDayNifty[].class));
 				
-				for (int j =0; j < equities.size(); j++) {
+				/*for (int j =0; j < equities.size(); j++) {
 					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();
 					equities.get(j).setPostionsVol(postionsVol);
 					//System.out.println(equities.get(j).getPostionsVol());
 				}
 				intraDayNiftyEquityRepository.saveAll(equities);
+				*/
+				List<IntraDayNifty> call = equities.stream().filter(eq->eq.getType()==Column.CALL.getColumn()).collect(Collectors.toList());
+				List<IntraDayNifty> callDB = (List<IntraDayNifty>) intraDayNiftyEquityRepository.saveAll(call);
+				
+				List<IntraDayNifty> put = equities.stream().filter(eq->eq.getType()==Column.PUT.getColumn()).collect(Collectors.toList());
+				put.stream().forEach(putEq->{
+					Optional<IntraDayNifty> eqty = call.stream()
+							.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+					if (eqty.isPresent()) {
+						putEq.setPutId(eqty.get().getId());
+					}
+				});
+				intraDayNiftyEquityRepository.saveAll(put);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -157,12 +184,25 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 			mapper.setSerializationInclusion(Include.NON_NULL);
 			try {
 				equities = Arrays.asList(mapper.readValue(files[i], StockOptionsEquity[].class));
-				for (int j =0; j < equities.size(); j++) {
+			/*	for (int j =0; j < equities.size(); j++) {
 					postionsVol = equities.get(j).getChnginOI() / equities.get(j).getVolume();
 					equities.get(j).setPostionsVol(postionsVol);
 					//System.out.println(equities.get(j).getPostionsVol());
 				}
 				stockOptionsequityRepository.saveAll(equities);
+				*/
+				List<StockOptionsEquity> call = equities.stream().filter(eq->eq.getType()==Column.CALL.getColumn()).collect(Collectors.toList());
+				List<StockOptionsEquity> callDB = (List<StockOptionsEquity>) stockOptionsequityRepository.saveAll(call);
+				
+				List<StockOptionsEquity> put = equities.stream().filter(eq->eq.getType()==Column.PUT.getColumn()).collect(Collectors.toList());
+				put.stream().forEach(putEq->{
+					Optional<StockOptionsEquity> eqty = call.stream()
+							.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+					if (eqty.isPresent()) {
+						putEq.setPutId(eqty.get().getId());
+					}
+				});
+				stockOptionsequityRepository.saveAll(put);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

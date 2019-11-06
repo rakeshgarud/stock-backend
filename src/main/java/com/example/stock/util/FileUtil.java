@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,11 +64,11 @@ public class FileUtil {
 		return files;
 	}
 
-	public static void saveNiftyOptionsEquityAsJsonFile(List<NiftyEquityDerivative> equities, String sourcePath) {
+	public static void saveNiftyOptionsEquityAsJsonFile(List<NiftyEquityDerivative> equities, String sourcePath,String... filePrefix) {
 		try {
 			ObjectMapper Obj = new ObjectMapper();
 			String jsonStr = Obj.writeValueAsString(equities);
-			String fileName = DateUtil.getDateAsString() + ".json";
+			String fileName = filePrefix[0]+"-"+DateUtil.getDateAsString() + ".json";
 
 			FileWriter file = new FileWriter(sourcePath + "\\" + fileName);
 			file.write(jsonStr);
@@ -100,6 +101,46 @@ public class FileUtil {
 			FileWriter file = new FileWriter(sourcePath + "\\" + fileName);
 			file.write(jsonStr);
 			file.close();
+			logger.info("New file " + fileName + "is created");
+		} catch (IOException e) {
+		}
+	}
+	
+	public static void saveAsCSVFile(List<Map<String, Double>> listObj, String sourcePath) {
+		try {
+			FileWriter writer;
+			String fileName = sourcePath + "\\" +DateUtil.getDateAsString() + ".csv";
+			writer = new FileWriter(fileName, true);  //True = Append to file, false = Overwrite
+			
+			// Write CSV
+			for (int i = 0; i < listObj.size(); i++) {	 
+				writer.write(listObj.get(i).get("symbol").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("oi").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("chnginOI").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("volume").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("iv").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("ltp").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("netChng").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("bidQty").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("bidPrice").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("askPrice").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("askQty").toString());
+				writer.write(",");
+				writer.write(listObj.get(i).get("strikePrice").toString());
+				writer.write("\r\n");
+			}
+			
+			writer.close();
 			logger.info("New file " + fileName + "is created");
 		} catch (IOException e) {
 		}

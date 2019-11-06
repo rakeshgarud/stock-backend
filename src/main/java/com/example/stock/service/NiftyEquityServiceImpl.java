@@ -40,20 +40,41 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 
 	@Override
 	public void saveNiftyEquityDerivatives() {
-		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(Constant.EQUITY_CHART_URL);
-		List<NiftyEquityDerivative> equities = new ArrayList<NiftyEquityDerivative>();
-		resultObj.forEach(s -> {
-			ObjectMapper mapper = new ObjectMapper();
-			NiftyEquityDerivative equity = new NiftyEquityDerivative();
-			equity = mapper.convertValue(s, NiftyEquityDerivative.class);
-			equity.setDate(DateUtil.getCurretDate());
-			equity.setId(null);
-			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
-			equities.add(equity);
-		});
-		String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_SOURCE_DIR);
-		FileUtil.saveNiftyOptionsEquityAsJsonFile(equities, sourceDir);
-		equityDerivativeRepository.saveAll(equities);
+
+		List<String> dates = EquityDerivativesUtil.getExpiryDate(null);
+		for (String date : dates) {
+			String url = Constant.EQUITY_CHART_URL + "&date=" + date;
+			List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(url);
+			List<NiftyEquityDerivative> call = new ArrayList<NiftyEquityDerivative>();
+			List<NiftyEquityDerivative> put = new ArrayList<NiftyEquityDerivative>();
+			List<NiftyEquityDerivative> equities = new ArrayList<NiftyEquityDerivative>();
+			resultObj.forEach(s -> {
+				ObjectMapper mapper = new ObjectMapper();
+				NiftyEquityDerivative equity = new NiftyEquityDerivative();
+				equity = mapper.convertValue(s, NiftyEquityDerivative.class);
+				equity.setDate(DateUtil.getDateWithoutTime(DateUtil.getCurretDate()));
+				equity.setExpiryDate(date);
+				equity.setId(null);
+				equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
+				if(equity.getType()==Column.CALL.getColumn())
+					call.add(equity);
+				if(equity.getType()==Column.PUT.getColumn())
+					put.add(equity);
+				
+				equities.add(equity);
+			});
+			String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_SOURCE_DIR);
+			FileUtil.saveNiftyOptionsEquityAsJsonFile(equities, sourceDir,date);
+			List<NiftyEquityDerivative> callDB = (List<NiftyEquityDerivative>) equityDerivativeRepository.saveAll(call);
+			put.stream().forEach(putEq->{
+				Optional<NiftyEquityDerivative> eqty = callDB.stream()
+						.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+				if (eqty.isPresent()) {
+					putEq.setPutId(eqty.get().getId());
+				}
+			});
+			equityDerivativeRepository.saveAll(put);
+		}
 	}
 
 	@Override
@@ -68,7 +89,7 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 				if(search.getEndDate() !=null)
 					endDate = DateUtil.getDateWithoutTime(search.getEndDate());
 			}
-			List<Date> dates = equityDerivativeRepository.getDistinctDateBetweenRange(startDate, endDate);
+			List<Date> dates = equityDerivativeRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			for (Date date : dates) {
 				finalEquity.addAll(getEquitiesByDates(date, date, search));
 			}
@@ -92,26 +113,35 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 		}
 
 		try {
-			List<Date> dates = equityDerivativeRepository.getDistinctDateBetweenRange(startDate, endDate);
+			List<Date> dates = equityDerivativeRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			List<NiftyEquityDerivative> searchedEquity = new ArrayList<NiftyEquityDerivative>();
 			for (Date date : dates) {
 				Date thisDate = date;
-				Date prevDate = DateUtil.addDaysToDate(date, -1);
+				Date prevDate = DateUtil.getDateWithoutTime(DateUtil.addDaysToDate(date, -1));
 				List<NiftyEquityDerivative> thisEqty = getEquitiesByDates(thisDate, thisDate, search);
-				List<NiftyEquityDerivative> prevEqty = getEquitiesByDates(prevDate, prevDate, search);
+				List<NiftyEquityDerivative> prevEqty = getEquitiesByDates(prevDate, DateUtil.getEndOfDay(prevDate), search);
 				thisEqty.stream().forEach(thseq -> {
 
 					Optional<NiftyEquityDerivative> eqty = prevEqty.stream()
 							.filter(pre -> pre.getStrikePrice() == thseq.getStrikePrice()).findFirst();
 					if (eqty.isPresent()) {
-						NiftyEquityDerivative diffEqty = eqty.get();
-						diffEqty.setOi(thseq.getOi() - eqty.get().getOi());
-						diffEqty.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
-						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
-						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
-						diffEqty.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
-						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolumeDif());
-						thseq.setPrevEquity(diffEqty);
+						NiftyEquityDerivative callDiff = eqty.get();
+						callDiff.setOi(thseq.getOi() - eqty.get().getOi());
+						callDiff.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
+						callDiff.setIv(thseq.getIv() - eqty.get().getIv());
+						callDiff.setLtp(thseq.getLtp() - eqty.get().getLtp());
+						callDiff.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
+						callDiff.setPostionsVol(callDiff.getChnginDif()/callDiff.getVolumeDif());
+						
+						NiftyEquityDerivative putDiff = eqty.get().getPut();
+						putDiff.setOi(thseq.getPut().getOi() - eqty.get().getOi());
+						putDiff.setChnginDif(thseq.getPut().getChnginOI() - eqty.get().getChnginOI());
+						putDiff.setIv(thseq.getPut().getIv() - eqty.get().getIv());
+						putDiff.setLtp(thseq.getPut().getLtp() - eqty.get().getLtp());
+						putDiff.setVolumeDif(thseq.getPut().getVolume() - eqty.get().getVolume());
+						putDiff.setPostionsVol(putDiff.getChnginDif()/putDiff.getVolumeDif());
+						thseq.getPut().setPrevEquity(putDiff);
+						thseq.setPrevEquity(callDiff);
 					}
 				});
 
@@ -119,7 +149,7 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 			}
 			return searchedEquity;
 		} catch (Exception e) {
-			logger.error("EquityServiceImpl: Error",e);
+			logger.error("NiftyEquityServiceImpl: Error",e);
 		}
 		return null;
 	}
@@ -131,14 +161,14 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 		if (search.getStrikePrice() > 0) {
 			List<NiftyEquityDerivative> equities = equityDerivativeRepository
 					.getEquitiesByStrikePriceBetweenDatesAndByType(startDate, endDate, search.getStrikePrice(),
-							Column.valueOf(search.getType()).ordinal());
+							Column.valueOf(search.getType()).getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
-		List<NiftyEquityDerivative> equities = equityDerivativeRepository.getAllEquitiesBetweenDatesAndByType(startDate,
-				endDate, Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+		List<NiftyEquityDerivative> equities = equityDerivativeRepository.getAllEquitiesBetweenDates(startDate,
+				endDate, Column.PUT.getColumn(), search.getSymbol(),search.getExpiryDate());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {

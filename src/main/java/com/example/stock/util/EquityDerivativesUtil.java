@@ -55,9 +55,9 @@ public class EquityDerivativesUtil {
 					Map<String, Double> callMap = new HashMap<String, Double>();
 					Map<String, Double> putMap = new HashMap<String, Double>();
 
-					callMap.put(Constant.COLMN_TYPE, (double) Column.CALL.ordinal());
+					callMap.put(Constant.COLMN_TYPE, (double) Column.CALL.getColumn());
 					callMap.put(Constant.ROW, (double) rowCount);
-					putMap.put(Constant.COLMN_TYPE, (double) Column.PUT.ordinal());
+					putMap.put(Constant.COLMN_TYPE, (double) Column.PUT.getColumn());
 					putMap.put(Constant.ROW, (double) rowCount);
 
 					int i = 0;
@@ -97,5 +97,28 @@ public class EquityDerivativesUtil {
 			e.printStackTrace();
 		}
 		return resultObj.stream().limit(resultObj.size() - 2).collect(Collectors.toList());
+	}
+	
+	public static List<String> getExpiryDate(String url) {
+		if (url == null)
+			url = "https://www.nseindia.com/live_market/dynaContent/live_watch/option_chain/optionKeys.jsp?symbolCode=-10006&symbol=NIFTY&symbol=NIFTY&instrument=-&date=-&segmentLink=17&symbolCount=2&segmentLink=17";
+		List<String> resultObj = new ArrayList<String>();
+		Document doc;
+		try {
+			doc = Jsoup.connect(url).get();
+			Element table = doc.select("select#date").get(0); // Selector for Table
+			Elements options = table.select("option");
+			int rowCount=0;
+			for (Element option : options) {
+				if (rowCount > 0 && rowCount<5) { // Skipping header rows
+					String optionVal = option.text();
+					resultObj.add(optionVal);
+				}
+				rowCount++;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultObj;
 	}
 }

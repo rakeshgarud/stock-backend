@@ -4,12 +4,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +36,7 @@ import com.example.stock.service.NiftyPremiumDKService;
 import com.example.stock.service.StockOptionsEquityService;
 import com.example.stock.util.DateUtil;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders = { "Content-Type", "Accept",
+@CrossOrigin(origins = {"*"}, maxAge = 3600, allowedHeaders = { "Content-Type", "Accept",
 		"x-xsrf-token", "Access-Control-Allow-Headers", "Origin", "Access-Control-Request-Method",
 		"Access-Control-Request-Headers" })
 @RestController
@@ -92,6 +96,24 @@ public class EquityOptionsController {
 		return Arrays.asList();
 	}
 	
+	@PostMapping(value="/stocksOptions.csv",consumes = MediaType.APPLICATION_JSON_VALUE,produces = "text/csv; charset=utf-8")
+	public ResponseEntity<byte[]> exportStockOptionsCSV(@RequestBody SearchFilter search) {
+		try {
+			String csvString = stockOptionsEquityService.getCsvReport(search);
+			byte[] isr = csvString.getBytes();
+			String fileName = "employees.json";
+			HttpHeaders respHeaders = new HttpHeaders();
+			respHeaders.setContentLength(isr.length);
+			respHeaders.setContentType(new MediaType("text", "json"));
+			respHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+			respHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+			return new ResponseEntity<byte[]>(isr, respHeaders, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Error while processing request- /search/stocks");
+		}
+		return new ResponseEntity<byte[]>(null, null, HttpStatus.OK);
+	}
+	
 	@GetMapping("/load-nifty")
 	public void loadEquityData(@PathParam("url") String url) {
 		equityService.saveNiftyEquityDerivatives();
@@ -106,14 +128,18 @@ public class EquityOptionsController {
 	public List<IntraDayNifty> getIntraDayYesterDayMinusToday(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
 		try {
 			int hr = Integer.parseInt(startTime.split(":")[0]);
+			if(hr>12)
+				hr = hr-12;
 			int min = Integer.parseInt(startTime.split(":")[1]);
 			search.setStartDate(DateUtil.setDateWithTime(hr,min));
 			hr = Integer.parseInt(endTime.split(":")[0]);
+			if(hr>12)
+				hr = hr-12;
 			min = Integer.parseInt(endTime.split(":")[1]);
 			search.setEndDate(DateUtil.setDateWithTime(hr,min));
 			return intraDayEquityService.getIntraDayYesterdayMinusToday(search);
 		} catch (Exception e) {
-			logger.error("Error while processing request- /intraday");
+			logger.error("Error while processing request- /nifty/intraday");
 		}
 		return Arrays.asList();
 	}

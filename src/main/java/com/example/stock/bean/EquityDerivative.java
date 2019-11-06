@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public abstract class EquityDerivative {
 
 	@Column
+	private Long putId;
+	@Column
 	private String symbol;
 	@Column
 	private double oi;
@@ -41,6 +43,8 @@ public abstract class EquityDerivative {
 	private int type;
 	@Column
 	private int rowNo;
+	@Column
+	private String expiryDate;
 	
 	@Column
 	private double postionsVol;
@@ -57,6 +61,33 @@ public abstract class EquityDerivative {
 	@Transient
 	private EquityDerivative prevEquity;
 	
+	
+	public EquityDerivative() {
+		super();
+	}
+	
+	public EquityDerivative(String symbol, double oi, double chnginOI, double volume, double iv, double ltp,
+			double netChng, double bidQty, double bidPrice, double askPrice, double askQty, double strikePrice,
+			Date date, int type, int rowNo, String expiryDate, double currentPrice) {
+		super();
+		this.symbol = symbol;
+		this.oi = oi;
+		this.chnginOI = chnginOI;
+		this.volume = volume;
+		this.iv = iv;
+		this.ltp = ltp;
+		this.netChng = netChng;
+		this.bidQty = bidQty;
+		this.bidPrice = bidPrice;
+		this.askPrice = askPrice;
+		this.askQty = askQty;
+		this.strikePrice = strikePrice;
+		this.date = date;
+		this.type = type;
+		this.rowNo = rowNo;
+		this.expiryDate = expiryDate;
+		this.currentPrice = currentPrice;
+	}
 	public String getSymbol() {
 		return symbol;
 	}
@@ -180,12 +211,27 @@ public abstract class EquityDerivative {
 	public void setCurrentPrice(double currentPrice) {
 		this.currentPrice = currentPrice;
 	}
+	
+	public String getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(String expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 	@Override
 	public String toString() {
 		return "EquityDerivative [oi=" + oi + ", changeInOI=" + chnginOI + ", volume=" + volume + ", iv=" + iv
 				+ ", ltp=" + ltp + ", netChng=" + netChng + ", bidQty=" + bidQty + ", bidPrice=" + bidPrice
 				+ ", askPrice=" + askPrice + ", askQty=" + askQty + ", strikePrice=" + strikePrice + ", date=" + date
 				+ ", type=" + type + ", rowNo=" + rowNo +  ", postionsVol=" + postionsVol +"]";
+	}
+
+	public Long getPutId() {
+		return putId;
+	}
+
+	public void setPutId(Long putId) {
+		this.putId = putId;
 	}
 	
 }

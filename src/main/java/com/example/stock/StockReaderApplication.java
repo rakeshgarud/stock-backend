@@ -1,6 +1,8 @@
 package com.example.stock;
 
+import java.util.Date;
 import java.util.Properties;
+import java.util.TimeZone;
 import java.util.concurrent.Executor;
 
 import javax.annotation.PostConstruct;
@@ -60,5 +62,13 @@ public class StockReaderApplication {
 	        executor.setThreadNamePrefix("JDAsync-");
 	        executor.initialize();
 	        return executor;
+	    }
+	    
+	    @PostConstruct
+	    public void init() {
+
+	        TimeZone.setDefault(TimeZone.getTimeZone("IST"));
+
+	        System.out.println("Date in IST: " + new Date().toString());
 	    }
 }

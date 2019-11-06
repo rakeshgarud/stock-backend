@@ -23,6 +23,7 @@ import com.example.stock.service.NiftyEquityService;
 import com.example.stock.service.NiftyPremiumDKService;
 import com.example.stock.service.StockOptionsEquityService;
 import com.example.stock.service.StockService;
+import com.example.stock.util.EquityDerivativesUtil;
 import com.example.stock.util.HTTPConnection;
 
 @Component
@@ -84,6 +85,7 @@ public class Scheduler {
 					            .min(Comparator.comparingInt(i -> Math.abs(i - value))).orElse(0);
 						
 						if (triggers.contains(nearestValue) && nearestValue !=lastValue) {
+							//EquityDerivativesUtil.getExpiryDate(null);
 							Map<String, Object> triggerValue = new HashMap<String, Object>();
 							triggerValue.put(Constant.TRIGGER_LAST_VALUE, nearestValue);
 							configService.saveConfig(triggerValue);
@@ -101,6 +103,7 @@ public class Scheduler {
 	
 	@Scheduled(cron = "0 */8 * ? * *") //Runs job after every 8 Min daily
 	public void cronGetEquityDataForNifty() throws Exception {
+		EquityDerivativesUtil.getExpiryDate(null);
 		logger.info("Scheduler Job : Started cronGetEquityDataForNifty "+dateTimeFormatter.format(LocalDateTime.now()));
 		intraDayEquityService.saveIntraDayNiftyEquityDerivatives();
 		logger.info("Scheduler Job : Finished cronGetEquityDataForNifty "+dateTimeFormatter.format(LocalDateTime.now()));

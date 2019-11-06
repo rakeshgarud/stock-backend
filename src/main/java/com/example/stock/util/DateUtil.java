@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtil {
 
@@ -13,6 +14,7 @@ public class DateUtil {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
+        cal.setTimeZone(TimeZone.getDefault());
         return cal.getTime();
 	}
 	
@@ -76,7 +78,7 @@ public class DateUtil {
 	}
 	
 	public static Date stringToDate(String date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
 		Date dateStr=getCurretDate();
 		try {
 			dateStr = dateFormat.parse(date);
@@ -91,6 +93,37 @@ public class DateUtil {
 		cal.set(Calendar.HOUR_OF_DAY, hr);
         cal.set(Calendar.MINUTE, min);
         cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+	}
+	
+	public static Date formateAsYYMMDDHH(Date date) {
+		try { 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		String dateStr = dateFormat.format(date);
+		 SimpleDateFormat dateFrm = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+			try {
+				date = dateFrm.parse(dateStr);
+				cal.setTime(date);
+			} catch (ParseException e) {
+				System.out.println(e);
+			}
+		return date;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return date;
+		
+	}
+	
+	public static Date getEndOfDay(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
         cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
 	}

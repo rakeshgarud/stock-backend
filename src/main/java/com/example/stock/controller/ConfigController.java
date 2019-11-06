@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.stock.service.ConfigService;
 import com.example.stock.util.EmailUtil;
+import com.example.stock.util.EquityDerivativesUtil;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders = { "Content-Type", "Accept",
 		"x-xsrf-token", "Access-Control-Allow-Headers", "Origin", "Access-Control-Request-Method",
@@ -41,5 +42,11 @@ public class ConfigController {
 			configService.saveConfig(obj);
 		} catch (Exception e) {
 		}
+	}
+	
+	@GetMapping(value="expiryDates")
+	public Object getExpiryDates() {
+		//emailSender.sendMail();
+		return EquityDerivativesUtil.getExpiryDate(null);
 	}
 }

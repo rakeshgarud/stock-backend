@@ -1,6 +1,9 @@
 package com.example.stock.service;
 
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +12,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.example.stock.bean.EquityDerivativePredicate;
+import com.example.stock.bean.NiftyEquityDerivative;
 import com.example.stock.bean.StockOptionsEquity;
 import com.example.stock.constants.Constant;
 import com.example.stock.dto.Filter;
@@ -47,6 +53,9 @@ public class StockOptionsEquityService {
 			List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(url);
 			logger.info("Fetching data for : " + symbol.get("symbol") + " URL =" + url);
 			List<StockOptionsEquity> equities = new ArrayList<StockOptionsEquity>();
+			List<StockOptionsEquity> call = new ArrayList<StockOptionsEquity>();
+			List<StockOptionsEquity> put = new ArrayList<StockOptionsEquity>();
+
 			resultObj.forEach(s -> {
 				ObjectMapper mapper = new ObjectMapper();
 				StockOptionsEquity equity = new StockOptionsEquity();
@@ -56,10 +65,23 @@ public class StockOptionsEquityService {
 				equity.setId(null);
 				equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
 				equities.add(equity);
+				
+				if(equity.getType()==Column.CALL.getColumn())
+					call.add(equity);
+				if(equity.getType()==Column.PUT.getColumn())
+					put.add(equity);
 			});
-			//String sourceDir = (String) configService.getConfigByName(Constant.STOCK_OPTIONS_SOURCE_DIR);
-			//FileUtil.saveStockOptionsEquityAsJsonFile(equities, sourceDir);
-			stockOptionEquityRepository.saveAll(equities);
+			String sourceDir = (String) configService.getConfigByName(Constant.STOCK_OPTIONS_SOURCE_DIR);
+			FileUtil.saveStockOptionsEquityAsJsonFile(equities, sourceDir);
+			List<StockOptionsEquity> callDB =(List<StockOptionsEquity>) stockOptionEquityRepository.saveAll(call);
+			put.stream().forEach(putEq->{
+				Optional<StockOptionsEquity> eqty = callDB.stream()
+						.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+				if (eqty.isPresent()) {
+					putEq.setPutId(eqty.get().getId());
+				}
+			});
+			stockOptionEquityRepository.saveAll(put);
 			logger.info("Record successfully saved for : " + symbol.get("symbol") + " URL =" + url);
 		}
 	}
@@ -74,7 +96,7 @@ public class StockOptionsEquityService {
 				if (search.getEndDate() != null)
 					endDate = DateUtil.getDateWithoutTime(search.getEndDate());
 			}
-			List<Date> dates = stockOptionEquityRepository.getDistinctDateBetweenRange(startDate, endDate);
+			List<Date> dates = stockOptionEquityRepository.getDistinctDateBetweenRangeAndExpiry(startDate, endDate,search.getExpiryDate());
 			for (Date date : dates) {
 				stockOptionsList.addAll(getStockEquitiesByDates(date, date, search));
 			}
@@ -92,14 +114,14 @@ public class StockOptionsEquityService {
 		if (search.getStrikePrice() > 0) {
 			List<StockOptionsEquity> equities = stockOptionEquityRepository
 					.getEquitiesByStrikePriceBetweenDatesAndByType(startDate, endDate, search.getStrikePrice(),
-							Column.valueOf(search.getType()).ordinal());
+							Column.valueOf(search.getType()).getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
-		List<StockOptionsEquity> equities = stockOptionEquityRepository.getAllEquitiesBetweenDatesAndByType(startDate,
-				endDate, Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+		List<StockOptionsEquity> equities = stockOptionEquityRepository.getAllEquitiesBetweenDates(startDate,
+				endDate, Column.PUT.getColumn(), search.getSymbol(),search.getExpiryDate());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {
@@ -203,14 +225,14 @@ public class StockOptionsEquityService {
 		if (search.getStrikePrice() > 0) {
 			List<StockOptionsEquity> equities = stockOptionEquityRepository
 					.getEquitiesByStrikePriceBetweenDatesAndByType(startDate, endDate, search.getStrikePrice(),
-							Column.valueOf(search.getType()).ordinal());
+							Column.valueOf(search.getType()).getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
 		List<StockOptionsEquity> equities = stockOptionEquityRepository.getAllEquitiesBetweenDatesAndByType(startDate,
-				endDate, Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+				endDate, Column.valueOf(search.getType()).getColumn(), search.getSymbol());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {
@@ -261,5 +283,27 @@ public class StockOptionsEquityService {
 		});
 
 		return list;
+	}
+	
+	public String getCsvReport(SearchFilter search) {
+		List<StockOptionsEquity> listObj = serachStocksOptionEquity(search);
+		List<String> header = Arrays.asList("OI", "CHNOI", "VOLUME","IV","LTP","StrickPrice");
+		String csvData = String.join(",", header);
+		try {
+		      for (StockOptionsEquity obj : listObj) {
+		        List<String> data = Arrays.asList(
+		        		String.valueOf(obj.getOi()).toString(),
+		        		String.valueOf(obj.getChnginOI()),String.valueOf(obj.getVolume()),
+		        		String.valueOf(obj.getIv()),String.valueOf(obj.getLtp()),
+		        		String.valueOf(obj.getStrikePrice())
+		        		//obj.getPut().getOi(),obj.getPut().getChnginOI(),obj.getPut().getVolume(),obj.getPut().getIv(),obj.getPut().getLtp(),obj.getPut().getStrikePrice()
+		          );
+		        csvData = csvData+"/n"+String.join(",", data);
+		      }
+		    } catch (Exception e) {
+		      System.out.println("Writing CSV error!");
+		      e.printStackTrace();
+		    }
+		return csvData;
 	}
 }

@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.jsoup.helper.DataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,8 @@ public class NiftyPremiumDKService {
 
 	public void saveNiftyPremiumDK(double currentPrice) {
 		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(Constant.EQUITY_CHART_URL);
+		List<NiftyPremiumDK> call = new ArrayList<NiftyPremiumDK>();
+		List<NiftyPremiumDK> put = new ArrayList<NiftyPremiumDK>();
 		List<NiftyPremiumDK> equities = new ArrayList<NiftyPremiumDK>();
 		Date createdDate = DateUtil.getDateWithoutSec(new Date());
 		resultObj.forEach(s -> {
@@ -50,11 +52,26 @@ public class NiftyPremiumDKService {
 			equity.setId(null);
 			equity.setPostionsVol(equity.getChnginOI() / equity.getVolume());
 			equity.setCurrentPrice(currentPrice);
+			if(equity.getType()==Column.CALL.getColumn())
+				call.add(equity);
+			if(equity.getType()==Column.PUT.getColumn())
+				put.add(equity);
+			
 			equities.add(equity);
 		});
+
 		String sourceDir = (String) configService.getConfigByName(Constant.NIFTY_PRIMIUMDK_SOURCE_DIR);
 		FileUtil.saveAsJsonFile(equities, sourceDir);
-		niftyPremiumDKRepository.saveAll(equities);
+		
+		List<NiftyPremiumDK> callDB = (List<NiftyPremiumDK>) niftyPremiumDKRepository.saveAll(call);
+		put.stream().forEach(putEq->{
+			Optional<NiftyPremiumDK> eqty = callDB.stream()
+					.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+			if (eqty.isPresent()) {
+				putEq.setPutId(eqty.get().getId());
+			}
+		});
+		niftyPremiumDKRepository.saveAll(put);
 	}
 
 	public List<NiftyPremiumDK> serachIntraDayNiftyEquity(SearchFilter search) {
@@ -81,7 +98,7 @@ public class NiftyPremiumDKService {
 
 	public HashMap<String, Object> getPremiumDK(SearchFilter search) {
 		Date startDate = DateUtil.getDateWithoutTime(search.getStartDate());
-		Date endDate = search.getEndDate();
+		Date endDate = DateUtil.getDateWithoutTime(DateUtil.addDaysToDate(search.getEndDate(), 1));
 		HashMap<String, Object> response = new HashMap<String, Object>();
 		try {
 			List<Date> dates = niftyPremiumDKRepository.getDistinctDateBetweenRange(startDate, endDate);
@@ -114,14 +131,14 @@ public class NiftyPremiumDKService {
 		List<NiftyPremiumDK> finalEquity = new ArrayList<NiftyPremiumDK>();
 		if (search.getStrikePrice() > 0) {
 			List<NiftyPremiumDK> equities = niftyPremiumDKRepository.getEquitiesByStrikePriceBetweenDatesAndByType(
-					startDate, endDate, search.getStrikePrice(), Column.valueOf(search.getType()).ordinal());
+					startDate, endDate, search.getStrikePrice(), Column.valueOf(search.getType()).getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
 		List<NiftyPremiumDK> equities = niftyPremiumDKRepository.getAllEquitiesBetweenDatesAndByType(startDate, endDate,
-				Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+				Column.valueOf(search.getType()).getColumn(), search.getSymbol());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {

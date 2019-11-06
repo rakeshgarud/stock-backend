@@ -12,6 +12,7 @@ public class SearchFilter {
 	private String symbol;
 	private double strikePrice;
 	private int recordCount=20;
+	private String expiryDate;
 	
 	private List<Filter> filter;
 	
@@ -62,6 +63,14 @@ public class SearchFilter {
 	}
 	public void setRecordCount(int recordCount) {
 		this.recordCount = recordCount;
+	}
+	public String getExpiryDate() {
+		if(this.expiryDate ==null)
+			expiryDate = "";
+		return expiryDate;
+	}
+	public void setExpiryDate(String expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 	
 }

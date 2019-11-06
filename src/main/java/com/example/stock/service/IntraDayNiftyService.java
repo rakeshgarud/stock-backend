@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.stock.bean.EquityDerivativePredicate;
 import com.example.stock.bean.IntraDayNifty;
-import com.example.stock.bean.NiftyPremiumDK;
 import com.example.stock.constants.Constant;
 import com.example.stock.dto.Filter;
 import com.example.stock.dto.SearchFilter;
@@ -40,22 +39,43 @@ public class IntraDayNiftyService {
 	private ConfigService configService;
 	
 	public void saveIntraDayNiftyEquityDerivatives() {
-		List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(Constant.EQUITY_CHART_URL);
-		List<IntraDayNifty> equities = new ArrayList<IntraDayNifty>();
-		Date createdDate = DateUtil.getDateWithoutSec( new Date());
-		resultObj.forEach(s -> {
-			ObjectMapper mapper = new ObjectMapper();
-			IntraDayNifty equity = new IntraDayNifty();
-			equity = mapper.convertValue(s, IntraDayNifty.class);
-			equity.setDate(createdDate);
-			equity.setId(null);
-			double posVol = Double.valueOf(equity.getChnginOI()) / Double.valueOf(equity.getVolume());
-			equity.setPostionsVol(posVol);
-			equities.add(equity);
-		});
-		String sourceDir = (String) configService.getConfigByName(Constant.INTRADAY_NIFTY_SOURCE_DIR);
-		FileUtil.saveAsJsonFile(equities, sourceDir);
-		intraDayNiftyEquityRepository.saveAll(equities);
+		List<String> dates = EquityDerivativesUtil.getExpiryDate(null);
+		for(String date:dates) {
+			String url = Constant.EQUITY_CHART_URL + "&date=" + date;
+			List<Map<String, Double>> resultObj = EquityDerivativesUtil.getEquityData(url);
+			List<IntraDayNifty> equities = new ArrayList<IntraDayNifty>();
+			List<IntraDayNifty> call = new ArrayList<IntraDayNifty>();
+			List<IntraDayNifty> put = new ArrayList<IntraDayNifty>();
+			
+			Date createdDate = DateUtil.getDateWithoutSec( new Date());
+			resultObj.forEach(s -> {
+				ObjectMapper mapper = new ObjectMapper();
+				IntraDayNifty equity = new IntraDayNifty();
+				equity = mapper.convertValue(s, IntraDayNifty.class);
+				equity.setDate(createdDate);
+				equity.setExpiryDate(date);
+				equity.setId(null);
+				double posVol = Double.valueOf(equity.getChnginOI()) / Double.valueOf(equity.getVolume());
+				equity.setPostionsVol(posVol);
+				equities.add(equity);
+				if(equity.getType()==Column.CALL.getColumn())
+					call.add(equity);
+				if(equity.getType()==Column.PUT.getColumn())
+					put.add(equity);
+			});
+			String sourceDir = (String) configService.getConfigByName(Constant.INTRADAY_NIFTY_SOURCE_DIR);
+			FileUtil.saveAsJsonFile(equities, sourceDir);
+			List<IntraDayNifty> callDB =  (List<IntraDayNifty>) intraDayNiftyEquityRepository.saveAll(call);
+			
+			put.stream().forEach(putEq->{
+				Optional<IntraDayNifty> eqty = callDB.stream()
+						.filter(pre -> pre.getRowNo() == putEq.getRowNo()).findFirst();
+				if (eqty.isPresent()) {
+					putEq.setPutId(eqty.get().getId());
+				}
+			});
+			intraDayNiftyEquityRepository.saveAll(put);
+		}
 	}
 
 	
@@ -70,7 +90,7 @@ public class IntraDayNiftyService {
 				if(search.getEndDate() !=null)
 					endDate = DateUtil.getDateWithoutTime(search.getEndDate());
 			}
-			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate);
+			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			for (Date date : dates) {
 				finalEquity.addAll(getEquitiesByDates(date, date, search));
 			}
@@ -87,7 +107,8 @@ public class IntraDayNiftyService {
 		Date endDate = search.getEndDate();
 
 		try {
-			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate);
+			intraDayNiftyEquityRepository.findAll();
+			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			List<IntraDayNifty> searchedEquity = new ArrayList<IntraDayNifty>();
 			if(!dates.isEmpty()) {
 				Date lastDate = dates.get(dates.size()-1);
@@ -98,14 +119,23 @@ public class IntraDayNiftyService {
 					Optional<IntraDayNifty> eqty = prevEqty.stream()
 							.filter(pre -> pre.getStrikePrice() == thseq.getStrikePrice()).findFirst();
 					if (eqty.isPresent()) {
-						IntraDayNifty diffEqty = eqty.get();
-						diffEqty.setOi(thseq.getOi() - eqty.get().getOi());
-						diffEqty.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
-						diffEqty.setIv(thseq.getIv() - eqty.get().getIv());
-						diffEqty.setLtp(thseq.getLtp() - eqty.get().getLtp());
-						diffEqty.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
-						diffEqty.setPostionsVol(diffEqty.getChnginDif()/diffEqty.getVolumeDif());
-						thseq.setPrevEquity(diffEqty);
+						IntraDayNifty callDiff = eqty.get();
+						callDiff.setOi(thseq.getOi() - eqty.get().getOi());
+						callDiff.setChnginDif(thseq.getChnginOI() - eqty.get().getChnginOI());
+						callDiff.setIv(thseq.getIv() - eqty.get().getIv());
+						callDiff.setLtp(thseq.getLtp() - eqty.get().getLtp());
+						callDiff.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
+						callDiff.setPostionsVol(callDiff.getChnginDif()/callDiff.getVolumeDif());
+						
+						IntraDayNifty putDiff = eqty.get().getPut();
+						putDiff.setOi(thseq.getPut().getOi() - eqty.get().getOi());
+						putDiff.setChnginDif(thseq.getPut().getChnginOI() - eqty.get().getChnginOI());
+						putDiff.setIv(thseq.getPut().getIv() - eqty.get().getIv());
+						putDiff.setLtp(thseq.getPut().getLtp() - eqty.get().getLtp());
+						putDiff.setVolumeDif(thseq.getPut().getVolume() - eqty.get().getVolume());
+						putDiff.setPostionsVol(putDiff.getChnginDif()/putDiff.getVolumeDif());
+						thseq.getPut().setPrevEquity(putDiff);
+						thseq.setPrevEquity(callDiff);
 					}
 				});
 
@@ -146,7 +176,7 @@ public class IntraDayNiftyService {
 		Date endDate = search.getEndDate();
 		HashMap<String, Object> response = new HashMap<String, Object>();
 		try {
-			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate);
+			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			List<IntraDayNifty> searchedEquity = new ArrayList<IntraDayNifty>();
 			for (Date date : dates) {
 				searchedEquity.addAll(getEquitiesByDates(date, date, search));
@@ -170,14 +200,14 @@ public class IntraDayNiftyService {
 		if (search.getStrikePrice() > 0) {
 			List<IntraDayNifty> equities = intraDayNiftyEquityRepository
 					.getEquitiesByStrikePriceBetweenDatesAndByType(startDate, endDate, search.getStrikePrice(),
-							Column.valueOf(search.getType()).ordinal());
+							Column.PUT.getColumn());
 			return equities;
 		}
 		if (search.getSymbol() == null) {
 			search.setSymbol("");
 		}
-		List<IntraDayNifty> equities = intraDayNiftyEquityRepository.getAllEquitiesBetweenDatesAndByType(startDate,
-				endDate, Column.valueOf(search.getType()).ordinal(), search.getSymbol());
+		List<IntraDayNifty> equities = intraDayNiftyEquityRepository.getAllEquitiesBetweenDates(startDate,
+				endDate, Column.PUT.getColumn(), search.getSymbol(),search.getExpiryDate());
 
 		for (Filter filt : filters) {
 			switch (filt.getKey()) {
