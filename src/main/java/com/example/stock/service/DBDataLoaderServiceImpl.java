@@ -25,7 +25,6 @@ import com.example.stock.repo.NiftyEquityDerivativeRepository;
 import com.example.stock.repo.StockOptionsEquityRepository;
 import com.example.stock.repo.StockRepository;
 import com.example.stock.util.CSVReader;
-import com.example.stock.util.DateUtil;
 import com.example.stock.util.FileUtil;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,7 +60,7 @@ public class DBDataLoaderServiceImpl implements DBDataLoaderService {
 		loadEquityFromFile(sourceDir, ".json");
 		
 		sourceDir = (String) configService.getConfigByName(Constant.INTRADAY_NIFTY_SOURCE_DIR);
-		loadNiftyIntradayFromFile(sourceDir, ".json");
+		//loadNiftyIntradayFromFile(sourceDir, ".json");
 		
 		sourceDir = (String) configService.getConfigByName(Constant.STOCK_OPTIONS_SOURCE_DIR);
 		loadStocksOptionsEquityFromFile(sourceDir, ".json");

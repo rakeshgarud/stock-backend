@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @MappedSuperclass
@@ -38,6 +41,7 @@ public abstract class EquityDerivative {
 	@Column
 	private double strikePrice;
 	@Column
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	@Column
 	private int type;
@@ -58,8 +62,8 @@ public abstract class EquityDerivative {
 	@Transient
 	private double volumeDif;
 	
-	@Transient
-	private EquityDerivative prevEquity;
+	/*@Transient
+	private EquityDerivative prevEquity;*/
 	
 	
 	public EquityDerivative() {
@@ -178,12 +182,12 @@ public abstract class EquityDerivative {
 	public void setRowNo(int row) {
 		this.rowNo = row;
 	}
-	public EquityDerivative getPrevEquity() {
+	/*public EquityDerivative getPrevEquity() {
 		return prevEquity;
 	}
 	public void setPrevEquity(EquityDerivative prevEquity) {
 		this.prevEquity = prevEquity;
-	}
+	}*/
 	
 	public double getPostionsVol() {
 		return postionsVol;

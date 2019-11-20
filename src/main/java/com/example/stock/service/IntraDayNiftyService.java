@@ -107,7 +107,7 @@ public class IntraDayNiftyService {
 		Date endDate = search.getEndDate();
 
 		try {
-			intraDayNiftyEquityRepository.findAll();
+			//List<IntraDayNifty> search1 = (List<IntraDayNifty>) intraDayNiftyEquityRepository.findAll();
 			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			List<IntraDayNifty> searchedEquity = new ArrayList<IntraDayNifty>();
 			if(!dates.isEmpty()) {
@@ -126,7 +126,6 @@ public class IntraDayNiftyService {
 						callDiff.setLtp(thseq.getLtp() - eqty.get().getLtp());
 						callDiff.setVolumeDif(thseq.getVolume() - eqty.get().getVolume());
 						callDiff.setPostionsVol(callDiff.getChnginDif()/callDiff.getVolumeDif());
-						
 						IntraDayNifty putDiff = eqty.get().getPut();
 						putDiff.setOi(thseq.getPut().getOi() - eqty.get().getOi());
 						putDiff.setChnginDif(thseq.getPut().getChnginOI() - eqty.get().getChnginOI());
@@ -134,6 +133,7 @@ public class IntraDayNiftyService {
 						putDiff.setLtp(thseq.getPut().getLtp() - eqty.get().getLtp());
 						putDiff.setVolumeDif(thseq.getPut().getVolume() - eqty.get().getVolume());
 						putDiff.setPostionsVol(putDiff.getChnginDif()/putDiff.getVolumeDif());
+						putDiff.setPrevEquity(null);
 						thseq.getPut().setPrevEquity(putDiff);
 						thseq.setPrevEquity(callDiff);
 					}

@@ -67,7 +67,7 @@ public class StockReaderApplication {
 	    @PostConstruct
 	    public void init() {
 
-	        TimeZone.setDefault(TimeZone.getTimeZone("IST"));
+	        //TimeZone.setDefault(TimeZone.getTimeZone("IST"));
 
 	        System.out.println("Date in IST: " + new Date().toString());
 	    }
