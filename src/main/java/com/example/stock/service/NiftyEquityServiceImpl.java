@@ -89,6 +89,7 @@ public class NiftyEquityServiceImpl implements NiftyEquityService {
 				if(search.getEndDate() !=null)
 					endDate = DateUtil.getDateWithoutTime(search.getEndDate());
 			}
+			List<NiftyEquityDerivative> fina =(List<NiftyEquityDerivative>) equityDerivativeRepository.findAll();
 			List<Date> dates = equityDerivativeRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			for (Date date : dates) {
 				finalEquity.addAll(getEquitiesByDates(date, date, search));

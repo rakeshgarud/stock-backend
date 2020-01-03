@@ -128,13 +128,13 @@ public class EquityOptionsController {
 	public List<IntraDayNifty> getIntraDayYesterDayMinusToday(@PathParam("startTime") String startTime,@PathParam("endTime") String endTime,@RequestBody SearchFilter search) {
 		try {
 			int hr = Integer.parseInt(startTime.split(":")[0]);
-			if(hr>12)
-				hr = hr-12;
+			/*if(hr>12)
+				hr = hr-12;*/
 			int min = Integer.parseInt(startTime.split(":")[1]);
 			search.setStartDate(DateUtil.setDateWithTime(hr,min));
 			hr = Integer.parseInt(endTime.split(":")[0]);
-			if(hr>12)
-				hr = hr-12;
+			/*if(hr>12)
+				hr = hr-12;*/
 			min = Integer.parseInt(endTime.split(":")[1]);
 			search.setEndDate(DateUtil.setDateWithTime(hr,min));
 			return intraDayEquityService.getIntraDayYesterdayMinusToday(search);

@@ -101,7 +101,7 @@ public class Scheduler {
 		//TimeUnit.SECONDS.sleep(2);
 	}
 	
-	@Scheduled(cron = "0 */1 * ? * *") //Runs job after every 8 Min daily
+	@Scheduled(cron = "0 */8 * ? * *") //Runs job after every 8 Min daily
 	public void cronGetEquityDataForNifty() throws Exception {
 		EquityDerivativesUtil.getExpiryDate(null);
 		logger.info("Scheduler Job : Started cronGetEquityDataForNifty "+dateTimeFormatter.format(LocalDateTime.now()));

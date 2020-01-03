@@ -107,7 +107,7 @@ public class IntraDayNiftyService {
 		Date endDate = search.getEndDate();
 
 		try {
-			//List<IntraDayNifty> search1 = (List<IntraDayNifty>) intraDayNiftyEquityRepository.findAll();
+			List<IntraDayNifty> search1 = (List<IntraDayNifty>) intraDayNiftyEquityRepository.findAll();
 			List<Date> dates = intraDayNiftyEquityRepository.getDistinctDateBetweenRange(startDate, endDate,search.getExpiryDate());
 			List<IntraDayNifty> searchedEquity = new ArrayList<IntraDayNifty>();
 			if(!dates.isEmpty()) {
